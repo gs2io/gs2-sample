@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -146,10 +146,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 680230257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 788f79728e6746aabd30ee136eaf5957, type: 3}
+  m_Script: {fileID: 11500000, guid: 8535b6bd834d1e441affbb3d59e1744d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   setting: {fileID: 1671123211}
+  initialized: 0
 --- !u!4 &680230259
 Transform:
   m_ObjectHideFlags: 0
@@ -190,11 +191,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1671123210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474ac827ab11473db7ef78f39534ae4b, type: 3}
+  m_Script: {fileID: 11500000, guid: d0135673ecff9db4abf093875345aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientId: GKIDIQZTzI9bMCTa4k3eRnREcTQQ1exnbDg4VfRUSFphd6tyk2-8iPoVjus6ek_zvYs
-  clientSecret: T2VwOFI3V1lGVU1MYmZEakM1WW1VU2I1eDlBYm1HVk0=
+  clientId: 
+  clientSecret: 
 --- !u!4 &1671123212
 Transform:
   m_ObjectHideFlags: 0
