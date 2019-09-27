@@ -7,6 +7,25 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 - gs2-sdk-for-unity
 - Core
 
+# 初期設定
+
+[Core ライブラリ](../core) の初期設定を済ませてから読み進めてください。
+
+## GS2-Deploy を使って初期設定をおこなう
+
+`initialize_account_template.yaml` をアップロードします。
+しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
+
+## GsAccount2Settings に設定を反映
+
+![ヒエラルキーウィンドウ](Docs/image-0001.jpg)
+
+ヒエラルキーウィンドウで `Canvas` という名前の GameObject を選択します。
+
+![インスペクターウィンドウ](Docs/image-0002.jpg)
+
+インスペクターウィンドウで GS2-Deploy で作成したリソースの情報を登録します。
+
 # パラメータ
 
 ステートマシンを動作させる際に指定するパラメータ

@@ -1,0 +1,17 @@
+﻿{
+    "name": "Gs2.Sample.AccountRegistrationLogin",
+    "references": [
+        "TMPro",
+        "Gs2",
+        "Gs2.Sample.Core"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
