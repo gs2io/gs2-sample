@@ -13,7 +13,7 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 
 ## GS2-Deploy を使って初期設定をおこなう
 
-`initialize_account_template.yaml` をアップロードします。
+[initialize_account_template.yaml](initialize_account_template.yaml) をアップロードします。
 しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## GsAccount2Settings に設定を反映
@@ -127,75 +127,3 @@ GS2-Account のログイン処理だけでなく、WebSocketセッションに�
 
 ログインが正常に完了した場合に遷移するステートです。
 ステートマシンはこのステートになると終了します。
-
-# トリガー
-
-ステートマシンのステート遷移をコントロールするトリガーです。
-
-## InitializeSucceed
-
-初期化が成功したときに発火するトリガーです。
-
-## InitializeFailed
-
-初期化が失敗したときに発火するトリガーです。
-
-## LoadAccountSucceed
-
-ローカルストレージからアカウント情報のロードに成功したときに発火するトリガーです。
-
-## LoadAccountFailed
-
-ローカルストレージからアカウント情報のロードに失敗したときに発火するトリガーです。
-
-## SelectCreateAccount
-
-「アカウントの作成」ボタンをクリックしたときに発火するトリガーです。
-
-## CreateAccountSucceed
-
-アカウントの新規作成が成功したときに発火するトリガーです。
-
-## CreateAccountFailed
-
-アカウントの新規作成が失敗したときに発火するトリガーです。
-
-## SaveAccountSucceed
-
-アカウント情報をローカルストレージに保存するのに成功したときに発火するトリガーです。
-
-## SaveAccountFailed
-
-アカウント情報をローカルストレージに保存するのに失敗したときに発火するトリガーです。
-
-## SelectLogin
-
-「ログイン」ボタンをクリックしたときに発火するトリガーです。
-
-## LoginSucceed
-
-ログインに成功したときに発火するトリガーです。
-
-## LoginFailed
-
-ログインに失敗したときに発火するトリガーです。
-
-## SelectRemoveAccount
-
-「アカウントの削除」ボタンをクリックしたときに発火するトリガーです。
-
-## RemoveAccountSucceed
-
-ローカルストレージからアカウント情報の削除に成功したときに発火するトリガーです。
-
-## RemoveAccountFailed
-
-ローカルストレージからアカウント情報の削除に失敗したときに発火するトリガーです。
-
-## ResultCallback
-
-ログイン結果のコールバックを返したあとに発火するトリガーです。
-
-## ConfirmError
-
-エラーページで「戻る」ボタンをクリックしたときに発火するトリガーです。
