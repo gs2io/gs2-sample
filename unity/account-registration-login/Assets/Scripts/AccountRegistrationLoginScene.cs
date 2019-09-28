@@ -1,17 +1,16 @@
 ﻿﻿using System;
-using Gs2.Sample.Core;
+using Gs2.Unity.Gs2Account.Model;
 using UnityEngine;
- using UnityEngine.UI;
+using UnityEngine.UI;
 
- namespace Gs2.Sample.AccountRegistrationLoginSample
+namespace Gs2.Sample.AccountRegistrationLoginSample
 {
-    public class AccountRegistrationLogin : MonoBehaviour
+    public class AccountRegistrationLoginScene : MonoBehaviour
     {
         /// <summary>
-        /// GS2 の設定値
+        /// アカウント操作をするためのコントローラー
         /// </summary>
-        [SerializeField]
-        public Gs2AccountSetting gs2AccountSetting;
+        public AccountRegistrationLoginController controller;
 
         /// <summary>
         /// ログイン画面に表示するユーザID
@@ -26,10 +25,10 @@ using UnityEngine;
         public Text errorMessage;
 
         /// <summary>
-        /// 
+        /// アカウント情報
         /// </summary>
-        private Gs2Client _client;
-        
+        private EzAccount _account;
+
         /// <summary>
         /// ステートマシン
         /// </summary>
@@ -37,11 +36,11 @@ using UnityEngine;
 
         private void Start()
         {
-            if (gs2AccountSetting == null)
+            if (controller.gs2AccountSetting == null)
             {
                 throw new InvalidProgramException("'Gs2AccountSetting' is not null.");
             }
-            if (string.IsNullOrEmpty(gs2AccountSetting.accountNamespaceName))
+            if (string.IsNullOrEmpty(controller.gs2AccountSetting.accountNamespaceName))
             {
                 throw new InvalidProgramException(
                     "'accountNamespaceName' of script 'Gs2AccountSetting' of 'Canvas' is not set. "+
@@ -53,7 +52,7 @@ using UnityEngine;
                     "詳しくは README.md をご確認ください。"
                     );
             }
-            if (string.IsNullOrEmpty(gs2AccountSetting.gatewayNamespaceName))
+            if (string.IsNullOrEmpty(controller.gs2AccountSetting.gatewayNamespaceName))
             {
                 throw new InvalidProgramException(
                     "'gatewayNamespaceName' of script 'Gs2AccountSetting' of 'Canvas' is not set. "+
@@ -65,7 +64,7 @@ using UnityEngine;
                     "詳しくは README.md をご確認ください。"
                 );
             }
-            if (string.IsNullOrEmpty(gs2AccountSetting.accountEncryptionKeyId))
+            if (string.IsNullOrEmpty(controller.gs2AccountSetting.accountEncryptionKeyId))
             {
                 throw new InvalidProgramException(
                     "'accountEncryptionKeyId' of script 'Gs2AccountSetting' of 'Canvas' is not set. "+
@@ -78,41 +77,19 @@ using UnityEngine;
                 );
             }
         
-            var gs2Client = GameObject.Find("Gs2Client");
-            if (gs2Client == null)
+            if (controller.gs2Client == null)
             {
                 throw new InvalidProgramException(
-                    "No GameObject named 'Gs2Client' found" +
-                    "It is necessary to place a GameObject registered with the settings for accessing GS2 in the scene." +
+                    "GS2 Client is not set in 'Canvas'" +
+                    "It is necessary to place a GameObject registered with the settings for accessing GS2 in the scene." + 
                     "Please check README.md for details." + 
                     " / " +
-                    "'Gs2Client' という名前の GameObject が見つかりません。" +
-                    "シーンに GS2 にアクセスするための設定を登録した GameObject を配置する必要があります。" +
-                    "詳しくは README.md をご確認ください。"
-                    );
-            }
-            _client = gs2Client.GetComponent<Gs2Client>();
-            if (_client == null)
-            {
-                throw new InvalidProgramException(
-                    "No GameObject named 'Gs2Client' found" +
-                    "It is necessary to place a GameObject registered with the settings for accessing GS2 in the scene." +
-                    "Please check README.md for details." + 
-                    " / " +
-                    "'Gs2Client' という名前の GameObject が見つかりません。" +
+                    "'Canvas' に GS2 Client が設定されていません。" +
                     "シーンに GS2 にアクセスするための設定を登録した GameObject を配置する必要があります。" +
                     "詳しくは README.md をご確認ください。"
                 );
             }
-            if (!_client.initialized)
-            {
-                throw new InvalidProgramException(
-                    "'Gs2Client' is not initialized. Change the initialization priority from 'Project Setting'." + 
-                    " / " +
-                    "'Gs2Client' が初期化されていません。 'Project Setting' から初期化優先度を変更してください。"
-                );
-            }
-            
+
             var animator = GetComponent<Animator>();
             if (animator == null)
             {
@@ -136,25 +113,26 @@ using UnityEngine;
                     );
             }
 
-            if (!_stateMachine.initialized)
-            {
-                _stateMachine.Initialize(
-                    _client.client,
-                    _client.profile,
-                    gs2AccountSetting,
-                    new AccountRepository(),
-                    _client
-                );
-
-                _stateMachine.onChangeState += (state) =>
+            _stateMachine.controller = controller;
+            _stateMachine.onChangeState.AddListener(
+                (_, state) =>
                 {
                     InActiveAll();
                     GetMenuGameObject(state).SetActive(true);
-                };
+                }
+            );
+            controller.gs2AccountSetting.onLoadAccount.AddListener(
+                account => { _account = account; }
+            );
+            controller.gs2AccountSetting.onCreateAccount.AddListener(
+                account => { _account = account; }
+            );
+            controller.gs2AccountSetting.onError.AddListener(
+                e => { errorMessage.text = e.Message; }
+            );
 
-                // 画面の初期状態を設定
-                InActiveAll();
-            }
+            // 画面の初期状態を設定
+            InActiveAll();
         }
 
         /// <summary>
@@ -186,11 +164,13 @@ using UnityEngine;
                 case AccountRegistrationLoginStateMachine.State.CreateAccountMenu:
                     return transform.Find("CreateAccount").gameObject;
                 case AccountRegistrationLoginStateMachine.State.LoginMenu:
-                    if (_stateMachine.account != null)
+                    if (_account != null)
                     {
-                        userId.text = "UserId: " + _stateMachine.account.UserId;
+                        userId.text = "UserId: " + _account.UserId;
                     }
                     return transform.Find("Login").gameObject;
+                case AccountRegistrationLoginStateMachine.State.LoginComplete:
+                    return transform.Find("Complete").gameObject;
                 case AccountRegistrationLoginStateMachine.State.Error:
                     return transform.Find("Error").gameObject;
                 default:

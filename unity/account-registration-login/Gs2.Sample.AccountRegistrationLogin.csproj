@@ -56,12 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AccountRegistrationLogin.cs" />
-     <Compile Include="Assets\Scripts\AccountRegistrationLoginRequest.cs" />
+     <Compile Include="Assets\Scripts\AccountRegistrationLoginController.cs" />
+     <Compile Include="Assets\Scripts\AccountRegistrationLoginScene.cs" />
      <Compile Include="Assets\Scripts\AccountRegistrationLoginStateMachine.cs" />
      <Compile Include="Assets\Scripts\AccountRepository.cs" />
      <Compile Include="Assets\Scripts\Gs2AccountSetting.cs" />
-     <Compile Include="Assets\Scripts\IAccountRepository.cs" />
      <None Include="Assets\Scripts\Gs2.Sample.AccountRegistrationLogin.asmdef" />
  <Reference Include="Gs2">
  <HintPath>C:/Users/niwa_kazutomo/Dropbox/develop/gs2/sample/unity/account-registration-login/Library/ScriptAssemblies/Gs2.dll</HintPath>

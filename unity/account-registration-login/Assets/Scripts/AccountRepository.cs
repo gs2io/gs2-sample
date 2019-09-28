@@ -5,7 +5,8 @@ using UnityEngine;
 
  namespace Gs2.Sample.AccountRegistrationLoginSample
  {
-	public class AccountRepository : IAccountRepository
+	 [System.Serializable]
+	public class AccountRepository
 	{
 
         /// <summary>

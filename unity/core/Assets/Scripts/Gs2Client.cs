@@ -26,15 +26,13 @@ namespace Gs2.Sample.Core
         /// </summary>
         public Gs2Setting setting;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool initialized;
-
-        private void Start()
+        public void Start()
         {
             DontDestroyOnLoad (this);
-            
+        }
+        
+        private void Validate()
+        {
             if (string.IsNullOrEmpty(setting.clientId))
             {
                 throw new InvalidProgramException(
@@ -69,8 +67,23 @@ namespace Gs2.Sample.Core
             client = new Client(
                 profile
             );
-
-            initialized = true;
+        }
+        
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
+        public IEnumerator Initialize(
+            UnityAction<AsyncResult<object>> callback
+        )
+        {
+            Validate();
+            
+            AsyncResult<object> result = null;
+            yield return profile.Initialize(
+                callback
+            );
         }
     }
 }
