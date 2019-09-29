@@ -1,9 +1,10 @@
 ﻿using Gs2.Unity.Util;
 using UnityEngine;
 
-namespace Scenes.MatchmakingMenu
+namespace Gs2.Sample.Matchmaking
 {
-    public class MatchmakingMenuRequest : MonoBehaviour
+    [System.Serializable]
+    public class MatchmakingRequest : MonoBehaviour
     {
         /// <summary>
         /// 

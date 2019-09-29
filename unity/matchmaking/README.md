@@ -6,6 +6,45 @@ GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサ�
 
 - gs2-sdk-for-unity
 - Core
+- AccountRegistrationLogin
+
+# 初期設定
+
+[Core ライブラリ](../core) と [AccountRegistrationLogin](../AccountRegistrationLogin) の初期設定を済ませてから読み進めてください。
+
+## GS2-Deploy を使って初期設定をおこなう
+
+[initialize_matchmaking_template.yaml](initialize_matchmaking_template.yaml) をアップロードします。
+しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
+
+## Gs2Settings に設定を反映
+
+Run シーンを開きます。
+
+![ヒエラルキーウィンドウ](Docs/image-0001.jpg)
+
+ヒエラルキーウィンドウで `Gs2Settings` を選択します。
+
+![インスペクターウィンドウ](Docs/image-0002.jpg)
+
+インスペクターウィンドウで GS2-Deploy で作成したリソースの情報を登録します。
+
+| 設定名 | 説明 |
+---------|------
+| matchmakingNamespaceName | GS2-Matchmaking のネームスペース名 |
+
+コールバックを設定することで、イベントに合わせて処理を追加することができます。
+
+| イベント | 説明 |
+---------|------
+| OnJoinPlayer(EzGathering gathering, string userId) | 参加中のギャザリングに新しい参加者が来た時に呼び出されます。 |
+| OnLeavePlayer(EzGathering gathering, string userId) | 参加中のギャザリングから参加者が離脱した時に呼び出されます。 |
+| OnUpdateJoinedPlayerIds(EzGathering gathering, List<string> joinedPlayerIds) | アカウントが作成されたときに呼び出されます。 |
+| OnLogin(EzAccount account, GameSession session) | 参加中のギャザリングのプレイヤーIDリストが更新されたときに呼び出されます。 このコールバックは必ず OnJoinPlayer / OnLeavePlayer のいずれかと同じタイミングで呼び出されます。 |
+| OnMatchmakingComplete(EzGathering gathering, List<string> joinedPlayerIds) | マッチメイキングが完了したときに呼び出されます。 |
+| OnError(Gs2Exception error) | エラーが発生したときに呼び出されます。 |
+
+設定が出来たら Unity Editor 上でシーンを実行することで動作を確認できます。
 
 # パラメータ
 
@@ -27,7 +66,7 @@ GS2-Matchmaking のネームスペース名
 
 # ステートマシン
 
-![ステートマシン](state_machine.png)
+![ステートマシン](Docs/state_machine.jpg)
 
 ## ステートの種類
 
@@ -52,62 +91,26 @@ GS2-Matchmaking のネームスペース名
 ギャザリングの新規作成処理
 
 ```csharp
-/// <summary>
-/// 誰でもいいので参加者を募集するギャザリングを新規作成
-/// </summary>
-/// <param name="animator"></param>
-/// <returns></returns>
-private IEnumerator SimpleMatchmakingCreateGathering(
-    Animator animator,
-    int capacity
-)
-{
-    AsyncResult<EzCreateGatheringResult> result = null;
-    yield return _client.Matchmaking.CreateGathering(
-        r => { result = r; },
-        _gameSession,
-        _setting.matchmakingNamespaceName,
-        new EzPlayer
-        {
-            RoleName = "default"
-        },
-        new List<EzCapacityOfRole>
-        {
-            new EzCapacityOfRole
-            {
-                RoleName = "default",
-                Capacity = capacity
-            },
-        },
-        new List<string>(),
-        new List<EzAttributeRange>()
-    );
-    
-    if (result.Error != null)
+AsyncResult<EzCreateGatheringResult> result = null;
+yield return gs2Client.client.Matchmaking.CreateGathering(
+    r => { result = r; },
+    request.gameSession,
+    gs2MatchmakingSetting.matchmakingNamespaceName,
+    new EzPlayer
     {
-        if (OnError != null)
-        {
-            OnError.Invoke(
-                result.Error
-            );
-        }
-
-        animator.SetTrigger(Trigger.CreateGatheringFailed.ToString());
-        yield break;
-    }
-
-    _matchmakingComplete = false;
-    _joinedPlayerIds.Clear();
-    gathering = result.Result.Item;
-    _joinedPlayerIds.Add(_gameSession.AccessToken.userId);
-
-    if (OnUpdateJoinedPlayerIds != null)
+        RoleName = "default"
+    },
+    new List<EzCapacityOfRole>
     {
-        OnUpdateJoinedPlayerIds.Invoke(gathering, _joinedPlayerIds);
-    }
-
-    animator.SetTrigger(Trigger.CreateGatheringSucceed.ToString());
-}
+        new EzCapacityOfRole
+        {
+            RoleName = "default",
+            Capacity = capacity
+        },
+    },
+    new List<string>(),
+    new List<EzAttributeRange>()
+);
 ```
 
 このサンプルでは募集条件を特に指定せず、誰でも参加可能なギャザリングを作成しています。
@@ -118,71 +121,16 @@ private IEnumerator SimpleMatchmakingCreateGathering(
 既存のギャザリングに参加する処理
 
 ```csharp
-/// <summary>
-/// 既存のギャザリングに参加する
-/// </summary>
-/// <param name="animator"></param>
-/// <returns></returns>
-private IEnumerator SimpleMatchmakingJoinGathering(
-    Animator animator
-)
-{
-    AsyncResult<EzDoMatchmakingResult> result = null;
-    string contextToken = null;
-    while (true)
+yield return gs2Client.client.Matchmaking.DoMatchmaking(
+    r => { result = r; },
+    request.gameSession,
+    gs2MatchmakingSetting.matchmakingNamespaceName,
+    new EzPlayer
     {
-        yield return _client.Matchmaking.DoMatchmaking(
-            r => { result = r; },
-            _gameSession,
-            _setting.matchmakingNamespaceName,
-            new EzPlayer
-            {
-                RoleName = "default"
-            },
-            contextToken
-        );
-    
-        if (result.Error != null)
-        {
-            if (OnError != null)
-            {
-                OnError.Invoke(
-                    result.Error
-                );
-            }
-
-            if (result.Error is NotFoundException)
-            {
-                animator.SetTrigger(Trigger.GatheringNotFound.ToString());
-            }
-            else
-            {
-                animator.SetTrigger(Trigger.JoinGatheringFailed.ToString());
-            }
-            yield break;
-        }
-
-        if (result.Result.Item != null)
-        {
-            gathering = result.Result.Item;
-            if (!_matchmakingComplete)
-            {
-                animator.SetTrigger(Trigger.JoinGatheringSucceed.ToString());
-            }
-            else
-            {
-                if (OnMatchmakingComplete != null)
-                {
-                    OnMatchmakingComplete.Invoke(gathering, _joinedPlayerIds);
-                }
-                animator.SetTrigger(Trigger.MatchmakingSucceed.ToString());
-            }
-            yield break;
-        }
-
-        contextToken = result.Result.MatchmakingContextToken;
-    }
-}
+        RoleName = "default"
+    },
+    contextToken
+);
 ```
 
 このサンプルでは `default` ロールを募集しているギャザリングに参加します。
@@ -199,67 +147,18 @@ private IEnumerator SimpleMatchmakingJoinGathering(
 マッチメイキングの完了まち。
 `キャンセル` ボタンを選択した場合は `CancelMatchmaking` に遷移します。
 
-マッチメイキングの途中経過は以下のイベントハンドラを使用してハンドリングできます。
-
-```csharp
-/// <summary>
-/// 新しいプレイヤーがギャザリングに参加したとき
-/// </summary>
-public event JoinPlayerHandler OnJoinPlayer;
-
-/// <summary>
-/// プレイヤーがギャザリングから離脱したとき
-/// </summary>
-public event LeavePlayerHandler OnLeavePlayer;
-
-/// <summary>
-/// 参加中のプレイヤー一覧が更新されたとき
-/// </summary>
-public event UpdateJoinedPlayerIdsHandler OnUpdateJoinedPlayerIds;
-
-/// <summary>
-/// マッチメイキングが完了したとき
-/// </summary>
-public event MatchmakingCompleteHandler OnMatchmakingComplete;
-```
-
 ### CancelMatchmaking
 
 マッチメイキングをキャンセルするとき
 
 ```csharp
-/// <summary>
-/// マッチメイキングをキャンセルしたとき
-/// </summary>
-/// <param name="animator"></param>
-/// <returns></returns>
-private IEnumerator CancelMatchmaking(
-    Animator animator
-)
-{
-    AsyncResult<EzCancelMatchmakingResult> result = null;
-    yield return _client.Matchmaking.CancelMatchmaking(
-        r => { result = r; },
-        _gameSession,
-        _setting.matchmakingNamespaceName,
-        gathering.Name
-    );
-
-    if (result.Error != null)
-    {
-        if (OnError != null)
-        {
-            OnError.Invoke(
-                result.Error
-            );
-        }
-
-        animator.SetTrigger(Trigger.CancelMatchmakingFailed.ToString());
-        yield break;
-    }
-
-    animator.SetTrigger(Trigger.CancelMatchmakingSucceed.ToString());
-}
+AsyncResult<EzCancelMatchmakingResult> result = null;
+yield return gs2Client.client.Matchmaking.CancelMatchmaking(
+    r => { result = r; },
+    request.gameSession,
+    gs2MatchmakingSetting.matchmakingNamespaceName,
+    _gathering.Name
+);
 ```
 
 ### MatchmakingComplete
@@ -276,101 +175,3 @@ private IEnumerator CancelMatchmaking(
 
 エラーが発生した場合に遷移するステートです。
 `メニューに戻る` を選択すると `Initialize` に戻ります
-
-# トリガー
-
-ステートマシンのステート遷移をコントロールするトリガーです。
-
-## InitializeSucceed
-
-初期化が成功したときに発火するトリガーです。
-
-## InitializeFailed
-
-初期化が失敗したときに発火するトリガーです。
-
-## SelectCreateGathering
-
-メインメニューで `ギャザリングの新規作成` を選択したときに発火するトリガーです。
-
-## SubmitCapacity
-
-ギャザリングの新規作成メニューで `マッチメイキング開始` を選択したときに発火するトリガーです。
-
-## CreateGatheringSucceed
-
-ギャザリングの作成に成功したときに発火するトリガーです。
-
-## CreateGatheringFailed
-
-ギャザリングの作成に失敗したときに発火するトリガーです。
-
-## SelectJoinGathering
-
-メインメニューで `ギャザリングへ参加` を選択したときに発火するトリガーです。
-
-## JoinGatheringSucceed
-
-ギャザリングへの参加に成功したときに発火するトリガーです。
-
-## JoinGatheringFailed
-
-ギャザリングへの参加に失敗したときに発火するトリガーです。
-
-## GatheringNotFound
-
-ギャザリングに参加しようとしてギャザリングが見つからなかったときに発火するトリガーです。
-
-## MatchmakingSucceed
-
-マッチメイキングが完了したときに発火するトリガーです。
-
-## SelectCancelMatchmaking
-
-マッチメイキング中に `キャンセル` を選択したときに発火するトリガーです。
-
-## CancelMatchmakingSucceed
-
-マッチメイキングのキャンセルが成功したときに発火するトリガーです。
-
-## CancelMatchmakingFailed
-
-マッチメイキングのキャンセルに失敗したときに発火するトリガーです。
-
-## ResultCallback
-
-マッチメイキングが完了して結果のコールバックが終わったときに発火するトリガーです。
-
-## ConfirmError
-
-エラー内容を表示して `メニューに戻る` を選択したときに発火するトリガーです。
-
-# コールバック
-
-ステートマシンの実装を拡張したいときに使用できるコールバックポイントを用意しています。
-コールバックはメインスレッドから呼び出されます。
-
-## OnChangeState(MatchmakingMenuStateMachine.State state)
-
-ステートマシンのステートが変化したときに呼び出されます。
-
-## OnJoinPlayer(EzGathering gathering, string userId)
-
-参加中のギャザリングに新しい参加者が来た時に呼び出されます。
-
-## OnLeavePlayer(EzGathering gathering, string userId)
-
-参加中のギャザリングから参加者が離脱した時に呼び出されます。
-
-## OnUpdateJoinedPlayerIds(EzGathering gathering, List<string> joinedPlayerIds)
-
-参加中のギャザリングのプレイヤーIDリストが更新されたときに呼び出されます。
-このコールバックは必ず OnJoinPlayer / OnLeavePlayer のいずれかと同じタイミングで呼び出されます。
-
-## OnMatchmakingComplete(EzGathering gathering, List<string> joinedPlayerIds)
-
-マッチメイキングが完了したときに呼び出されます。
-
-## OnError(Gs2Exception error)
-
-エラーが発生したときに呼び出されます。

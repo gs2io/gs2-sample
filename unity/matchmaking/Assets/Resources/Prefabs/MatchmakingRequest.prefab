@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &2622484108860967705
 GameObject:
@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6103122908924568046}
   - component: {fileID: 156164350440303486}
   m_Layer: 0
-  m_Name: MatchmakingMenuRequest
+  m_Name: MatchmakingRequest
   m_TagString: MatchmakingMenuRequest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,6 +40,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2622484108860967705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03537a75e7234a709b5b44daf17c1e7a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa2ff4a8a7fb44645b6ced33baed1b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
