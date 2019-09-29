@@ -5,9 +5,9 @@ namespace Gs2.Sample.Core
 {
     public class Gs2Util
     {
-        public static T LoadGlobalResource<T>() where T: MonoBehaviour
+        public static T LoadGlobalResource<T>(string fixedName = null) where T: MonoBehaviour
         {
-            var requestGameObject = GameObject.FindWithTag(typeof(T).Name);
+            var requestGameObject = GameObject.Find(typeof(T).Name);
             var request = requestGameObject == null ? null : requestGameObject.GetComponent<T>();
             if (request == null)
             {
@@ -23,8 +23,12 @@ namespace Gs2.Sample.Core
                     throw new InvalidProgramException("'" + typeof(T).Name + ".prefab' is not found.");
                 }
 
+                if (fixedName != null)
+                {
+                    gameObject.name = fixedName;
+                }
+
                 request = gameObject.GetComponent<T>();
-                request.tag = typeof(T).Name;
             }
             return request;
         }
