@@ -46,23 +46,15 @@ Run シーンを開きます。
 
 設定が出来たら Unity Editor 上でシーンを実行することで動作を確認できます。
 
-# パラメータ
+## MatchmakingRequest
 
-ステートマシンを動作させる際に指定するパラメータ
+ステートマシンを動作させるために引数としてシーンに設定する Prefab。
 
-## MatchmakingMenuRequest
+**サンプルを Run シーンから実行する場合は自動的に生成されるため、設定する必要はありません。**
 
-サンプルを動作させるために引数としてシーンに設定するコンポーネント。
-
-### GameSession
-
-ログイン済みのゲームセッション
-
-## Gs2MatchmakingSetting
-
-### matchmakingNamespaceName
-
-GS2-Matchmaking のネームスペース名
+| パラメータ名 | 説明 |
+------------|-----
+| gameSession | ログイン済みのゲームセッション |
 
 # ステートマシン
 
