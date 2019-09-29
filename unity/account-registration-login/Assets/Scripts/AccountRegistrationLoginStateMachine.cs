@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Gs2.Core;
+using Gs2.Unity.Gs2Account.Model;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,7 +53,12 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
         public AccountRegistrationLoginController controller;
 
         /// <summary>
-        /// アカウント作成メニューを表示するべきときに呼び出されるイベント
+        /// アカウント情報
+        /// </summary>
+        public EzAccount account;
+
+        /// <summary>
+        /// ステートが変化した時に呼び出されるイベント
         /// </summary>
         public ChangeStateEvent onChangeState = new ChangeStateEvent();
 
@@ -64,6 +70,13 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
             Animator animator
         )
         {
+            controller.gs2AccountSetting.onLoadAccount.AddListener(
+                loadAccount => { this.account = loadAccount; }
+            );
+            controller.gs2AccountSetting.onCreateAccount.AddListener(
+                saveAccount => { this.account = saveAccount; }
+            );
+            
             AsyncResult<object> result = null;
             yield return controller.gs2Client.Initialize(
                 r =>
@@ -134,7 +147,8 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                     animator.SetTrigger(r.Error == null
                         ? Trigger.SaveAccountSucceed.ToString()
                         : Trigger.SaveAccountFailed.ToString());
-                }
+                },
+                account
             );
         }
 
@@ -152,7 +166,8 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                     animator.SetTrigger(r.Error == null
                         ? Trigger.LoginSucceed.ToString()
                         : Trigger.LoginFailed.ToString());
-                }
+                },
+                account
             );
         }
 

@@ -1,5 +1,6 @@
 ﻿﻿using System;
-using Gs2.Unity.Gs2Account.Model;
+ using Gs2.Sample.Core;
+ using Gs2.Unity.Gs2Account.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,17 +26,14 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
         public Text errorMessage;
 
         /// <summary>
-        /// アカウント情報
-        /// </summary>
-        private EzAccount _account;
-
-        /// <summary>
         /// ステートマシン
         /// </summary>
         private AccountRegistrationLoginStateMachine _stateMachine;
 
         private void Start()
         {
+            controller.Initialize();
+            
             if (controller.gs2AccountSetting == null)
             {
                 throw new InvalidProgramException("'Gs2AccountSetting' is not null.");
@@ -79,15 +77,19 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
         
             if (controller.gs2Client == null)
             {
-                throw new InvalidProgramException(
-                    "GS2 Client is not set in 'Canvas'" +
-                    "It is necessary to place a GameObject registered with the settings for accessing GS2 in the scene." + 
-                    "Please check README.md for details." + 
-                    " / " +
-                    "'Canvas' に GS2 Client が設定されていません。" +
-                    "シーンに GS2 にアクセスするための設定を登録した GameObject を配置する必要があります。" +
-                    "詳しくは README.md をご確認ください。"
-                );
+                controller.gs2Client = Gs2Util.LoadGlobalGameObject<Gs2Client>("Gs2Client");
+                if (controller.gs2Client == null)
+                {
+                    throw new InvalidProgramException(
+                        "Unable to find GS2 Client" +
+                        "You need to set GS2 Client on 'AccountRegistrationLoginController' or place a GameObject named 'Gs2Client' in the scene." +
+                        "Please check README.md for details." +
+                        " / " +
+                        "GS2 Client を見つけられません。" +
+                        "'AccountRegistrationLoginController' に GS2 Client を設定するか、'Gs2Client' という名前の GameObject をシーン内に配置する必要があります。" +
+                        "詳しくは README.md をご確認ください。"
+                    );
+                }
             }
 
             var animator = GetComponent<Animator>();
@@ -120,12 +122,6 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                     InActiveAll();
                     GetMenuGameObject(state).SetActive(true);
                 }
-            );
-            controller.gs2AccountSetting.onLoadAccount.AddListener(
-                account => { _account = account; }
-            );
-            controller.gs2AccountSetting.onCreateAccount.AddListener(
-                account => { _account = account; }
             );
             controller.gs2AccountSetting.onError.AddListener(
                 e => { errorMessage.text = e.Message; }
@@ -164,9 +160,9 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 case AccountRegistrationLoginStateMachine.State.CreateAccountMenu:
                     return transform.Find("CreateAccount").gameObject;
                 case AccountRegistrationLoginStateMachine.State.LoginMenu:
-                    if (_account != null)
+                    if (_stateMachine.account != null)
                     {
-                        userId.text = "UserId: " + _account.UserId;
+                        userId.text = "UserId: " + _stateMachine.account.UserId;
                     }
                     return transform.Find("Login").gameObject;
                 case AccountRegistrationLoginStateMachine.State.LoginComplete:

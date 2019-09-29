@@ -28,21 +28,11 @@ GS2-Deploy > スタックの新規作成
 `ApplicationClientId` `ApplicationClientSecret` という2つの値が確認できるはずです。
 この値が GS2 にアクセスするために必要な `クライアントID` と `クライアントシークレット` です。
 
-早速この値をサンプルに反映してみます。
-
-Unity Editor で `Gs2SettingHolder` シーンを開きます。
-`Gs2Setting` と `Gs2Client` の2つの GameObject が配置されたシーンが開きます。
-
-![ヒエラルキーウィンドウ](Docs/image-0001.jpg)
-
-ヒエラルキーウィンドウで `Gs2Setting` を選択してインスペクターを開きます。
+Unity Editor で動作確認したいサンプルの `Run` シーンを開きます。
+`Gs2Settings` という GameObject がシーンに配置されているはずです。
+ヒエラルキーウィンドウで `Gs2Settings` を選択してインスペクターを開きます。
 
 ![インスペクターウィンドウ](Docs/image-0002.jpg)
 
+すると、Gs2Settings というスクリプトが設定されており、
 `Client Id` と `Client Secret` を設定するテキストフィールドがありますので。先ほど GS2-Deploy で作成した値を設定します。
-
-## Gs2SettingHolder について
-
-GS2 のサンプルはすべて Gs2SettingHolder がもつ `Gs2Setting` と `Gs2Client` の2つの GameObject がシーン内に配置されているとして振る舞います。
-
-各サンプルのシーンにこれらの GameObject を配置するか、これらの GameObject は一度作成すると `DontDestroyOnLoad` が設定されるようになっていますので、起動シーケンスのどこかで生成してください。

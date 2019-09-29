@@ -263,7 +263,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &239501717
 GameObject:
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf77bc14da46e54aa6113461c7ad9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gs2AccountSetting: {fileID: 1713672919}
+  gs2AccountSetting: {fileID: 0}
   gs2Client: {fileID: 0}
 --- !u!114 &621375881
 MonoBehaviour:
@@ -613,7 +613,7 @@ RectTransform:
   - {fileID: 239501718}
   - {fileID: 1315384411}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2340,77 +2340,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656910549}
   m_CullTransparentMesh: 0
---- !u!1 &1713672918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1713672920}
-  - component: {fileID: 1713672919}
-  m_Layer: 0
-  m_Name: Gs2AccountSettings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1713672919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713672918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  accountNamespaceName: 
-  accountEncryptionKeyId: 
-  gatewayNamespaceName: 
-  onLoadAccount:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoadAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onSaveAccount:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.SaveAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onCreateAccount:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.CreateAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onLogin:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoginEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.ErrorEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!4 &1713672920
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713672918}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1731682400
 GameObject:
   m_ObjectHideFlags: 0

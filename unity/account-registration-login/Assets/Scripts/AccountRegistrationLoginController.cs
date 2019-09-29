@@ -30,15 +30,24 @@
         public Gs2Client gs2Client;
 
         /// <summary>
-        /// GS2のゲームプレイヤーアカウント情報
-        /// </summary>
-        private EzAccount _account;
-
-        /// <summary>
         /// GS2のゲームプレイヤーアカウントの永続化処理
         /// </summary>
         private readonly AccountRepository _repository = new AccountRepository();
 
+        public void Initialize()
+        {
+            if (!gs2AccountSetting)
+            {
+                gs2AccountSetting = Gs2Util.LoadGlobalGameObject<Gs2AccountSetting>("Gs2Settings");
+            }
+            if (!gs2Client)
+            {
+                gs2Client = Gs2Util.LoadGlobalGameObject<Gs2Client>("Gs2Settings");
+            }
+
+            Validate();
+        }
+        
         private void Validate()
         {
             if (!gs2AccountSetting)
@@ -96,7 +105,7 @@
             UnityAction<AsyncResult<EzCreateResult>> callback
         )
         {
-            Validate();
+            Initialize();
             
             AsyncResult<EzCreateResult> result = null;
             yield return gs2Client.client.Account.Create(
@@ -130,13 +139,13 @@
             UnityAction<AsyncResult<EzAccount>> callback
         )
         {
-            Validate();
+            Initialize();
 
             if (_repository.IsRegistered())
             {
-                _account = _repository.LoadAccount();
-                gs2AccountSetting.onLoadAccount.Invoke(_account);
-                callback.Invoke(new AsyncResult<EzAccount>(_account, null));
+                var account = _repository.LoadAccount();
+                gs2AccountSetting.onLoadAccount.Invoke(account);
+                callback.Invoke(new AsyncResult<EzAccount>(account, null));
             }
             else
             {
@@ -154,13 +163,14 @@
         /// </summary>
         /// <returns></returns>
         public IEnumerator SaveAccount(
-            UnityAction<AsyncResult<object>> callback
+            UnityAction<AsyncResult<object>> callback,
+            EzAccount account
         )
         {
-            Validate();
+            Initialize();
 
-            _repository.SaveAccount(_account);
-            gs2AccountSetting.onSaveAccount.Invoke(_account);
+            _repository.SaveAccount(account);
+            gs2AccountSetting.onSaveAccount.Invoke(account);
             
             callback.Invoke(new AsyncResult<object>(null, null));
             yield break;
@@ -174,7 +184,7 @@
             UnityAction<AsyncResult<object>> callback
         )
         {
-            Validate();
+            Initialize();
 
             _repository.DeleteAccount();
             
@@ -187,10 +197,11 @@
         /// </summary>
         /// <returns></returns>
         public IEnumerator Login(
-            UnityAction<AsyncResult<GameSession>> callback
+            UnityAction<AsyncResult<GameSession>> callback,
+            EzAccount account
         )
         {
-            Validate();
+            Initialize();
 
             AsyncResult<GameSession> result1 = null;
             yield return gs2Client.profile.Login(
@@ -198,8 +209,8 @@
                     gs2Client.profile.Gs2Session,
                     gs2AccountSetting.accountNamespaceName,
                     gs2AccountSetting.accountEncryptionKeyId,
-                    _account.UserId,
-                    _account.Password
+                    account.UserId,
+                    account.Password
                 ),
                 r =>
                 {
@@ -233,7 +244,7 @@
                 yield break;
             }
 
-            gs2AccountSetting.onLogin.Invoke(_account, session);
+            gs2AccountSetting.onLogin.Invoke(account, session);
             callback.Invoke(result1);
         }
     }

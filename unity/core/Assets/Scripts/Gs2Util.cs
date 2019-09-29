@@ -29,5 +29,11 @@ namespace Gs2.Sample.Core
             return request;
         }
 
+        public static T LoadGlobalGameObject<T>(string gameObjectName) where T: MonoBehaviour
+        {
+            var requestGameObject = GameObject.Find(gameObjectName);
+            return requestGameObject == null ? null : requestGameObject.GetComponent<T>();
+        }
+
     }
 }

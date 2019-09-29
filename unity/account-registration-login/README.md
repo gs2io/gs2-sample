@@ -16,11 +16,13 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 [initialize_account_template.yaml](initialize_account_template.yaml) をアップロードします。
 しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
-## GsAccount2Settings に設定を反映
+## Gs2Settings に設定を反映
+
+Run シーンを開きます。
 
 ![ヒエラルキーウィンドウ](Docs/image-0001.jpg)
 
-ヒエラルキーウィンドウで `GsAccount2Settings` を選択します。
+ヒエラルキーウィンドウで `Gs2Settings` を選択します。
 
 ![インスペクターウィンドウ](Docs/image-0002.jpg)
 
@@ -38,6 +40,7 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 ---------|------
 | OnLoadAccount(EzAccount account) | アカウントがロードされたときに呼び出されます。 |
 | OnSaveAccount(EzAccount account) | アカウントがセーブされたときに呼び出されます。 |
+| OnCreateAccount(EzAccount account) | アカウントが作成されたときに呼び出されます。 |
 | OnLogin(EzAccount account, GameSession session) | ログインに成功したときに呼び出されます。 |
 | OnError(Gs2Exception error) | エラーが発生したときに呼び出されます。 |
 
