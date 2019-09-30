@@ -2,40 +2,72 @@
 
 GS2-Realtime を使用してプレイヤー間で通信するサンプル。
 
-# 依存
+# 初期設定
 
-- gs2-sdk-for-unity
-- Core
+## GS2-Deploy を使って初期設定をおこなう
 
-# パラメータ
+- [initialize_credential_template.yaml - core](../core/initialize_credential_template.yaml)
+- [initialize_account_template.yaml - account-registration-login](initialize_account_template.yaml)
+- [initialize_realtime_template.yaml](initialize_realtime_template.yaml)
 
-ステートマシンを動作させる際に指定するパラメータ
+のスタックを作成します。
+しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
+
+### 注意事項
+
+**initialize_matchmaking_template.yaml** を実行する必要はありません。
+**initialize_matchmaking_template.yaml** で作成されるマッチメイキングネームスペースは、マッチメイキング成立時に GS2-Realtime にゲームサーバを起動しない設定で作成されるため
+**initialize_realtime_template.yaml** にてそれらの設定をこのサンプルにとってより適切な設定でマッチメイキングネームスペースを作成します。
+
+## Gs2Settings に設定を反映
+
+Run シーンを開きます。
+
+![ヒエラルキーウィンドウ](Docs/image-0001.jpg)
+
+ヒエラルキーウィンドウで `Gs2Settings` を選択します。
+
+![インスペクターウィンドウ](Docs/image-0002.jpg)
+
+インスペクターウィンドウで GS2-Deploy で作成したリソースの情報を登録します。
+
+| 設定名 | 説明 |
+---------|------
+| realtimeNamespaceName | GS2-Realtime のネームスペース名 |
+
+コールバックを設定することで、イベントに合わせて処理を追加することができます。
+
+| イベント | 説明 |
+---------|------
+| OnRelayMessage(RelayBinaryMessage message) | リアルタイムゲームサーバからメッセージを受信したときに呼び出されます。 |
+| OnGetRoom(EzRoom room) | リアルタイムゲームサーバのIPアドレス・ポート情報を取得したときに呼び出されます。 |
+| OnJoinPlayer(Player player) | リアルタイムゲームサーバに新しいプレイヤーが参加したときに呼び出されます。 |
+| OnLeavePlayer(Player player) | リアルタイムゲームサーバからプレイヤーが離脱したときに呼び出されます。 このコールバックは必ず OnJoinPlayer / OnLeavePlayer のいずれかと同じタイミングで呼び出されます。 |
+| OnUpdateProfile(Player player) | 誰かがプレイヤープロフィールを更新したときに呼び出されます。 |
+| OnRelayError(Error error) | リアルタイムゲームサーバでエラーが発生したときに呼び出されます。 |
+| OnClose(CloseEventArgs error) | リアルタイムゲームサーバから切断されたときに呼び出されます。 |
+| OnGeneralError(ErrorEventArgs error) | コネクション関連でエラーが発生したときに呼び出されます。 |
+| OnError(Gs2Exception error) | エラーが発生したときに呼び出されます。 |
+
+設定が出来たら Unity Editor 上でシーンを実行することで動作を確認できます。
 
 ## RealtimeRequest
 
-サンプルを動作させるために引数としてシーンに設定するコンポーネント。
+ステートマシンを動作させるために引数としてシーンに設定する Prefab。
 
-### gameSession
+**サンプルを Run シーンから実行する場合は自動的に生成されるため、設定する必要はありません。**
 
-ログイン済みのゲームセッション
-
-### gathering
-
-GS2-Matchmaking で成立したギャザリング情報
-
-### room
-
-テスト用に固定されたルームに接続する場合のルーム情報（IPアドレス・ポート・暗号鍵）
-
-## Gs2RealtimeSetting
-
-### realtimeNamespaceName
-
-GS2-Realtime のネームスペース名
+| パラメータ名 | 説明 |
+------------|-----
+| gameSession | ログイン済みのゲームセッション |
+| gatheringId | ゲームサーバ固有のID |
+| ipAddress | ゲームサーバのIPアドレス |
+| port | ゲームサーバの待ち受けポート |
+| encryptionKey | ゲームサーバとの通信に使用する暗号鍵 |
 
 # ステートマシン
 
-![ステートマシン](state_machine.png)
+![ステートマシン](Docs/state_machine.png)
 
 ## ステートの種類
 
@@ -52,7 +84,7 @@ GS2-Realtime からルームの情報を取得します。
 
 ```csharp
 /// <summary>
-/// GS2-Matchmaking のギャザリング情報から GS2-Realtime のルーム情報を取得
+/// GS2-Realtime のギャザリング情報から GS2-Realtime のルーム情報を取得
 /// </summary>
 /// <param name="animator"></param>
 /// <returns></returns>
@@ -237,64 +269,3 @@ private IEnumerator ConnectRoom(
 
 エラーが発生した場合に遷移するステートです。
 `メニューに戻る` を選択すると `Initialize` に戻ります
-
-# トリガー
-
-ステートマシンのステート遷移をコントロールするトリガーです。
-
-## InitializeSucceed
-
-初期化が成功したときに発火するトリガーです。
-
-## InitializeFailed
-
-初期化が失敗したときに発火するトリガーです。
-
-## GetRoomSucceed
-
-ルーム情報の取得に成功したときに発火するトリガーです。
-
-## GetRoomFailed
-
-ルーム情報の取得に失敗したときに発火するトリガーです。
-
-## ConnectRoomSucceed
-
-ゲームサーバへの接続に成功したときに発火するトリガーです。
-
-## ConnectRoomFailed
-
-ゲームサーバへの接続に失敗したときに発火するトリガーです。
-
-## SyncPlayerProfilesSucceed
-
-ほかのプレイヤーの座標情報の同期に成功したときに発火するトリガーです。
-
-## Disconnect
-
-ゲームサーバから切断されたときに発火するトリガーです。
-
-## ConfirmDisconnect
-
-切断メッセージを表示して `メニューに戻る` を選択したときに発火するトリガーです。
-
-## ConfirmError
-
-エラー内容を表示して `メニューに戻る` を選択したときに発火するトリガーです。
-
-# コールバック
-
-ステートマシンの実装を拡張したいときに使用できるコールバックポイントを用意しています。
-コールバックはメインスレッドから呼び出されます。
-
-## OnChangeState(MatchmakingMenuStateMachine.State state)
-
-ステートマシンのステートが変化したときに呼び出されます。
-
-## OnError(Gs2Exception error)
-
-エラーが発生したときに呼び出されます。
-
-## OnDisconnect()
-
-ゲームサーバから切断されたときに呼び出されます。

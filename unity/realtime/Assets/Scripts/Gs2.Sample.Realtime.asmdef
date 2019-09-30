@@ -1,0 +1,19 @@
+{
+    "name": "Gs2.Sample.Realtime",
+    "references": [
+        "TMPro",
+        "Gs2",
+        "Gs2.Sample.Core",
+        "Gs2.Sample.AccountRegistrationLogin",
+        "Gs2.Sample.Matchmaking"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

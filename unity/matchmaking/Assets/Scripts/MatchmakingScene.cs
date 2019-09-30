@@ -8,7 +8,7 @@ namespace Gs2.Sample.Matchmaking
     public class MatchmakingScene : MonoBehaviour
     {
         /// <summary>
-        /// アカウント操作をするためのコントローラー
+        /// マッチメイキング操作をするためのコントローラー
         /// </summary>
         public MatchmakingController controller;
 
@@ -87,10 +87,10 @@ namespace Gs2.Sample.Matchmaking
             if (animator == null)
             {
                 throw new InvalidProgramException(
-                    "'MatchmakingRegistrationLoginStateMachine' that controls the state is not registered." +
+                    "'MatchmakingStateMachine' that controls the state is not registered." +
                     "Check if Animator is registered in 'Canvas', if the correct controller is set, or if the script is set in the animator's Behavior" +
                     " / " + 
-                    "ステートをコントロールする 'MatchmakingRegistrationLoginStateMachine' が登録されていません." +
+                    "ステートをコントロールする 'MatchmakingStateMachine' が登録されていません." +
                     "'Canvas' に Animator が登録されているか、正しいコントローラーが設定されているか、アニメーターの Behaviour にスクリプトが設定されているかを確認してください"
                     );
             }
@@ -98,10 +98,10 @@ namespace Gs2.Sample.Matchmaking
             if (_stateMachine == null)
             {
                 throw new InvalidProgramException(
-                    "'MatchmakingRegistrationLoginStateMachine' that controls the state is not registered." +
+                    "'MatchmakingStateMachine' that controls the state is not registered." +
                     "Check if Animator is registered in 'Canvas', if the correct controller is set, or if the script is set in the animator's Behavior" +
                     " / " + 
-                    "ステートをコントロールする 'MatchmakingRegistrationLoginStateMachine' が登録されていません." +
+                    "ステートをコントロールする 'MatchmakingStateMachine' が登録されていません." +
                     "'Canvas' に Animator が登録されているか、正しいコントローラーが設定されているか、アニメーターの Behaviour にスクリプトが設定されているかを確認してください"
                     );
             }

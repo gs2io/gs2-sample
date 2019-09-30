@@ -40,6 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 453660592253177834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edde5a26b97743159448727df62aa46c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e91d0aadac68524ebf51211f5437f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gatheringId: 
+  ipAddress: 
+  port: 0
+  encryptionKey: 

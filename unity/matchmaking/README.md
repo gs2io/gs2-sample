@@ -10,12 +10,14 @@ GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサ�
 
 # 初期設定
 
-[Core ライブラリ](../core) と [AccountRegistrationLogin](../AccountRegistrationLogin) の初期設定を済ませてから読み進めてください。
-
 ## GS2-Deploy を使って初期設定をおこなう
 
-[initialize_matchmaking_template.yaml](initialize_matchmaking_template.yaml) をアップロードします。
-しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
+- [initialize_credential_template.yaml - core](../core/initialize_credential_template.yaml)
+- [initialize_account_template.yaml - account-registration-login](initialize_account_template.yaml)
+- [initialize_matchmaking_template.yaml](initialize_matchmaking_template.yaml)
+
+のスタックを作成します。
+しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
 

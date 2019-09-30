@@ -14,16 +14,24 @@ namespace Scenes.Realtime
         public GameSession gameSession;
 
         /// <summary>
-        /// 
+        /// ゲームサーバ固有のID
         /// </summary>
-        [SerializeField]
-        public EzGathering gathering;
+        public string gatheringId;
 
         /// <summary>
-        /// 
+        /// ゲームサーバのIPアドレス
         /// </summary>
-        [SerializeField]
-        public EzRoom room;
+        public string ipAddress;
+
+        /// <summary>
+        /// ゲームサーバの待ち受けポート
+        /// </summary>
+        public int port;
+
+        /// <summary>
+        /// ゲームサーバとの通信に使用する暗号鍵s
+        /// </summary>
+        public string encryptionKey;
 
         private void Start()
         {

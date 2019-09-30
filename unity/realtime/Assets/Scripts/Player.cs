@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using System.Text;
 using Google.Protobuf;
-using Gs2.Gs2Realtime.Message;
 using Gs2.Unity.Gs2Realtime;
 using Gs2.Unity.Gs2Realtime.Util;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scenes.Realtime
 {
@@ -14,14 +12,14 @@ namespace Scenes.Realtime
     {
         public float moveSpeed;
         private Vector2 _vector;
-        private TextMeshProUGUI _textMesh;
+        private Text _textMesh;
 
         public RelayRealtimeSession Session;
         public Messenger Messenger;
 
         private void Start()
         {
-            _textMesh = GetComponent<TextMeshProUGUI>();
+            _textMesh = GetComponent<Text>();
             
             _vector.Set(
                 transform.position.x,

@@ -9,12 +9,13 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 
 # 初期設定
 
-[Core ライブラリ](../core) の初期設定を済ませてから読み進めてください。
-
 ## GS2-Deploy を使って初期設定をおこなう
 
-[initialize_account_template.yaml](initialize_account_template.yaml) をアップロードします。
-しばらく待ってスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
+- [initialize_credential_template.yaml - core](../core/initialize_credential_template.yaml)
+- [initialize_account_template.yaml](initialize_account_template.yaml)
+
+のスタックを作成します。
+しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
 

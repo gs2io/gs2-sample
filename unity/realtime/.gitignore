@@ -1,0 +1,12 @@
+﻿﻿.idea
+Assets/Editor
+Assets/Editor.meta
+Assets/Plugins
+Assets/Plugins.meta
+Library
+Logs
+obj
+ProjectSettings
+Temp
+*.csproj
+*.sln
