@@ -2,13 +2,12 @@
 
 GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサンプル。
 
-# 依存
-
-- gs2-sdk-for-unity
-- Core
-- AccountRegistrationLogin
-
 # 初期設定
+
+## Unity でプロジェクトを開く
+
+`gs2-sample/unity/realtime` をプロジェクトとして開きます。
+すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -31,9 +30,14 @@ Run シーンを開きます。
 
 インスペクターウィンドウで GS2-Deploy で作成したリソースの情報を登録します。
 
-| 設定名 | 説明 |
----------|------
-| matchmakingNamespaceName | GS2-Matchmaking のネームスペース名 |
+| スクリプトファイル | 設定名 | 説明 |
+-----------------|------|------
+| Gs2Settings | clientId | GS2 にアクセスするためのクレデンシャル（クライアントID） |
+| Gs2Settings | clientSecret | GS2 にアクセスするためのクレデンシャル（クライアントシークレット） |
+| Gs2AccountSettings | accountNamespaceName | GS2-Account のネームスペース名 |
+| Gs2AccountSettings | accountEncryptionKeyId | GS2-Account でアカウント情報の暗号化に使用する GS2-Key の暗号鍵GRN |
+| Gs2AccountSettings | gatewayNamespaceName | GS2-Gateway のネームスペース名 |
+| Gs2MatchmakingSettings | matchmakingNamespaceName | GS2-Matchmaking のネームスペース名 |
 
 コールバックを設定することで、イベントに合わせて処理を追加することができます。
 

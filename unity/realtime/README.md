@@ -4,6 +4,11 @@ GS2-Realtime を使用してプレイヤー間で通信するサンプル。
 
 # 初期設定
 
+## Unity でプロジェクトを開く
+
+`gs2-sample/unity/realtime` をプロジェクトとして開きます。
+すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+
 ## GS2-Deploy を使って初期設定をおこなう
 
 - [initialize_credential_template.yaml - core](../core/initialize_credential_template.yaml)
@@ -31,9 +36,15 @@ Run シーンを開きます。
 
 インスペクターウィンドウで GS2-Deploy で作成したリソースの情報を登録します。
 
-| 設定名 | 説明 |
----------|------
-| realtimeNamespaceName | GS2-Realtime のネームスペース名 |
+| スクリプトファイル | 設定名 | 説明 |
+-----------------|------|------
+| Gs2Settings | clientId | GS2 にアクセスするためのクレデンシャル（クライアントID） |
+| Gs2Settings | clientSecret | GS2 にアクセスするためのクレデンシャル（クライアントシークレット） |
+| Gs2AccountSettings | accountNamespaceName | GS2-Account のネームスペース名 |
+| Gs2AccountSettings | accountEncryptionKeyId | GS2-Account でアカウント情報の暗号化に使用する GS2-Key の暗号鍵GRN |
+| Gs2AccountSettings | gatewayNamespaceName | GS2-Gateway のネームスペース名 |
+| Gs2MatchmakingSettings | matchmakingNamespaceName | GS2-Matchmaking のネームスペース名 |
+| Gs2RealtimeSettings | realtimeNamespaceName | GS2-Realtime のネームスペース名 |
 
 コールバックを設定することで、イベントに合わせて処理を追加することができます。
 
