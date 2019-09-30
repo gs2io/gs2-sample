@@ -6,7 +6,7 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/realtime` をプロジェクトとして開きます。
+`gs2-sample/unity/account-registration-login` をプロジェクトとして開きます。
 すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
 
 ## GS2-Deploy を使って初期設定をおこなう

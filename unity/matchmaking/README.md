@@ -6,7 +6,7 @@ GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサ�
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/realtime` をプロジェクトとして開きます。
+`gs2-sample/unity/matchmaking` をプロジェクトとして開きます。
 すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
 
 ## GS2-Deploy を使って初期設定をおこなう
