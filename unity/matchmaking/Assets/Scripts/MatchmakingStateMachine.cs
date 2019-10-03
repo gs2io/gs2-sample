@@ -1,10 +1,11 @@
-﻿﻿using System.Collections;
- using Gs2.Core;
- using Gs2.Core.Exception;
+﻿﻿using System;
+﻿using System.Collections;
+using Gs2.Core;
+using Gs2.Core.Exception;
 using UnityEngine;
- using UnityEngine.Events;
+using UnityEngine.Events;
 
- namespace Gs2.Sample.Matchmaking
+namespace Gs2.Sample.Matchmaking
 {
     public class MatchmakingStateMachine : StateMachineBehaviour
     {
@@ -175,17 +176,6 @@ using UnityEngine;
                         animator
                     )
                 );
-                newState = State.Initialize;
-            }
-            else if (stateInfo.IsName(State.MainMenu.ToString()))
-            {
-                // 
-                newState = State.MainMenu;
-            }
-            else if (stateInfo.IsName(State.CreateGatheringMenu.ToString()))
-            {
-                // 
-                newState = State.CreateGatheringMenu;
             }
             else if (stateInfo.IsName(State.CreateGathering.ToString()))
             {
@@ -195,7 +185,6 @@ using UnityEngine;
                         animator
                     )
                 );
-                newState = State.CreateGathering;
             }
             else if (stateInfo.IsName(State.JoinGathering.ToString()))
             {
@@ -205,12 +194,6 @@ using UnityEngine;
                         animator
                     )
                 );
-                newState = State.JoinGathering;
-            }
-            else if (stateInfo.IsName(State.Matchmaking.ToString()))
-            {
-                // 
-                newState = State.Matchmaking;
             }
             else if (stateInfo.IsName(State.CancelMatchmaking.ToString()))
             {
@@ -220,23 +203,19 @@ using UnityEngine;
                         animator
                     )
                 );
-                newState = State.CancelMatchmaking;
             }
             else if (stateInfo.IsName(State.MatchmakingComplete.ToString()))
             {
                 // 
                 animator.SetTrigger(Trigger.ResultCallback.ToString());
-                newState = State.MatchmakingComplete;
             }
-            else if (stateInfo.IsName(State.GatheringNotFound.ToString()))
+            foreach (State state in Enum.GetValues(typeof(State)))
             {
-                // 
-                newState = State.GatheringNotFound;
-            }
-            else if (stateInfo.IsName(State.Error.ToString()))
-            {
-                // エラー描画
-                newState = State.Error;
+                if (stateInfo.IsName(state.ToString()))
+                {
+                    newState = state;
+                    break;
+                }
             }
 
             // ステート変化を通知

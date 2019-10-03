@@ -204,7 +204,6 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     Initialize(animator)
                 );
-                newState = State.Initialize;
             }
             else if (stateInfo.IsName(State.LoadAccount.ToString()))
             {
@@ -212,12 +211,6 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     LoadAccount(animator)
                 );
-                newState = State.LoadAccount;
-            }
-            else if (stateInfo.IsName(State.CreateAccountMenu.ToString()))
-            {
-                // アカウント作成メニュー
-                newState = State.CreateAccountMenu;
             }
             else if (stateInfo.IsName(State.CreateAccountProcessing.ToString()))
             {
@@ -225,7 +218,6 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     Registration(animator)
                 );
-                newState = State.CreateAccountProcessing;
             }
             else if (stateInfo.IsName(State.SaveAccount.ToString()))
             {
@@ -233,12 +225,6 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     SaveAccount(animator)
                 );
-                newState = State.SaveAccount;
-            }
-            else if (stateInfo.IsName(State.LoginMenu.ToString()))
-            {
-                // ログインメニュー
-                newState = State.LoginMenu;
             }
             else if (stateInfo.IsName(State.LoginProcessing.ToString()))
             {
@@ -246,13 +232,11 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     Login(animator)
                 );
-                newState = State.LoginProcessing;
             }
             else if (stateInfo.IsName(State.LoginComplete.ToString()))
             {
                 // ログイン完了
                 animator.SetTrigger(Trigger.ResultCallback.ToString());
-                newState = State.LoginComplete;
             }
             else if (stateInfo.IsName(State.RemoveAccountProcessing.ToString()))
             {
@@ -260,12 +244,14 @@ namespace Gs2.Sample.AccountRegistrationLoginSample
                 controller.StartCoroutine(
                     RemoveAccount(animator)
                 );
-                newState = State.RemoveAccountProcessing;
             }
-            else if (stateInfo.IsName(State.Error.ToString()))
+            foreach (State state in Enum.GetValues(typeof(State)))
             {
-                // エラー描画
-                newState = State.Error;
+                if (stateInfo.IsName(state.ToString()))
+                {
+                    newState = state;
+                    break;
+                }
             }
 
             // ステート変化を通知

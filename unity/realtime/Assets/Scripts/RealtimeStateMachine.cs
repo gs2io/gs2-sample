@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Gs2.Core;
 using Gs2.Sample.Core;
@@ -175,7 +176,6 @@ namespace Scenes.Realtime
                         animator
                     )
                 );
-                newState = State.Initialize;
             }
             else if (stateInfo.IsName(State.GetRoom.ToString()))
             {
@@ -185,7 +185,6 @@ namespace Scenes.Realtime
                         animator
                     )
                 );
-                newState = State.GetRoom;
             }
             else if (stateInfo.IsName(State.ConnectRoom.ToString()))
             {
@@ -195,7 +194,6 @@ namespace Scenes.Realtime
                         animator
                     )
                 );
-                newState = State.ConnectRoom;
             }
             else if (stateInfo.IsName(State.SyncPlayerProfiles.ToString()))
             {
@@ -205,22 +203,14 @@ namespace Scenes.Realtime
                         animator
                     )
                 );
-                newState = State.SyncPlayerProfiles;
             }
-            else if (stateInfo.IsName(State.Main.ToString()))
+            foreach (State state in Enum.GetValues(typeof(State)))
             {
-                // 
-                newState = State.Main;
-            }
-            else if (stateInfo.IsName(State.Disconnected.ToString()))
-            {
-                // エラー描画
-                newState = State.Disconnected;
-            }
-            else if (stateInfo.IsName(State.Error.ToString()))
-            {
-                // エラー描画
-                newState = State.Error;
+                if (stateInfo.IsName(state.ToString()))
+                {
+                    newState = state;
+                    break;
+                }
             }
 
             // ステート変化を通知

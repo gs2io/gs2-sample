@@ -78,12 +78,16 @@ namespace Gs2.Sample.Core
             UnityAction<AsyncResult<object>> callback
         )
         {
+            Debug.Log("Validate");
             Validate();
+            Debug.Log("Done");
             
             AsyncResult<object> result = null;
+            Debug.Log("Profile.Initialize");
             yield return profile.Initialize(
                 callback
             );
+            Debug.Log("Done Profile.Initialize");
         }
     }
 }

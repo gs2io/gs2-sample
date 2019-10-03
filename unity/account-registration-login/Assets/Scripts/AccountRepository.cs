@@ -1,4 +1,5 @@
-﻿﻿﻿using System.IO;
+﻿﻿﻿using System.Collections.Generic;
+using System.IO;
 using Gs2.Unity.Gs2Account.Model;
 using LitJson;
 using UnityEngine;
@@ -47,10 +48,14 @@ using UnityEngine;
             }
 
             MakeAccountDataDirectory();
-            
-            var json = JsonMapper.ToJson(account);
+
+            var json = new JsonData
+            {
+	            ["userId"] = account.UserId, 
+	            ["password"] = account.Password
+            };
             var writer = new BinaryWriter(new FileStream(AccountDataPath(), FileMode.Create, FileAccess.Write));
-            writer.Write(json);
+            writer.Write(json.ToJson());
             writer.Close();
         }
         
@@ -60,9 +65,21 @@ using UnityEngine;
         public EzAccount LoadAccount()
         {
             var reader = new BinaryReader(new FileStream(AccountDataPath(), FileMode.Open, FileAccess.Read));
-            var account = JsonMapper.ToObject<EzAccount>(reader.ReadString());
+            var json = JsonMapper.ToObject(reader.ReadString());
             reader.Close ();
-            return account;
+            try
+            {
+	            return new EzAccount
+	            {
+		            UserId = (string)json["userId"],
+		            Password = (string)json["password"],
+	            };
+            }
+            catch (KeyNotFoundException)
+            {
+	            DeleteAccount();
+	            throw;
+            }
         }
         
 	    /// <summary>
