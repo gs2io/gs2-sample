@@ -4,5 +4,6 @@ Game Server Services (https://gs2.io) の Unity 向けのサンプルコード�
 
 - [Core](core/)
 - [アカウントの登録・ログイン](account-registration-login/)
+- [アカウントの引継ぎ](account-takeover/)
 - [マッチメイキング](matchmaking/)
 - [リアルタイム対戦](realtime/)
