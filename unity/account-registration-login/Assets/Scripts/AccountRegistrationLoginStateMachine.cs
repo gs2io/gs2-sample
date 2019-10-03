@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿﻿using System;
+using System.Collections;
 using Gs2.Core;
 using Gs2.Unity.Gs2Account.Model;
 using UnityEngine;
