@@ -1,0 +1,18 @@
+﻿{
+    "name": "Gs2.Sample.Money",
+    "references": [
+        "TMPro",
+        "Gs2",
+        "Gs2.Sample.Core",
+        "Gs2.Sample.AccountRegistrationLogin"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
