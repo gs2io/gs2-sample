@@ -6,5 +6,6 @@ Game Server Services (https://gs2.io) の Unity 向けのサンプルコード�
 - [アカウントの登録・ログイン](account-registration-login/)
 - [アカウントの引継ぎ](account-takeover/)
 - [課金通貨販売](money/)
+- [スタミナ](stamina/)
 - [マッチメイキング](matchmaking/)
 - [リアルタイム対戦](realtime/)
