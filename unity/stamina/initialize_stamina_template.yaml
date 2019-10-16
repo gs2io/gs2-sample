@@ -1,0 +1,112 @@
+﻿GS2TemplateFormatVersion: "2019-05-01"
+Description: GS2-Stamina initialize template Version 2010-06-26
+
+Globals:
+  Alias:
+    StaminaNamespaceName: stamina-0001
+    StaminaName: main
+    MoneyNamespaceName: money-0001
+    ExchangeNamespaceName: stamina-exchange
+    ExchangeRateName: money-stamima
+    ExchangeKeyNamespaceName: stamina-exchange-key  # 購入処理のスタンプシートの署名計算に使用する暗号鍵
+    ExchangeKeyName: stamp-sheet-key                # 購入処理のスタンプシートの署名計算に使用する暗号鍵
+    DistributorNamespaceName: stamina-distributor   # リソースの入手処理 を GS2-Distributor を経由することで所持数量制限で溢れた場合の GS2-Inbox への転送処理が自動的に行われる
+    DeliveryUserName: stamina-distribute-user       # リソースの入手処理を実行する権限を持つ GS2-Identifier ユーザ
+Resources:
+  StaminaNamespace:
+    Type: GS2::Stamina::Namespace
+    Properties:
+      Name: ${StaminaNamespaceName}
+
+  StaminaSettings:
+    Type: GS2::Stamina::CurrentStaminaMaster
+    Properties:
+      NamespaceName: ${StaminaNamespaceName}
+      Settings:
+        version: 2019-02-14
+        staminaModels:
+          - name: ${StaminaName}
+            recoverIntervalMinutes: 5
+            recoverValue: 1
+            initialCapacity: 50
+            isOverflow: true
+            maxCapacity: 999
+    DependsOn:
+      - StaminaNamespace
+
+  ExchangeKeyNamespace:
+    Type: GS2::Key::Namespace
+    Properties:
+      Name: ${ExchangeKeyNamespaceName}
+
+  ExchangeKey:
+    Type: GS2::Key::Key
+    Properties:
+      NamespaceName: ${ExchangeKeyNamespaceName}
+      Name: ${ExchangeKeyName}
+    DependsOn:
+      - ExchangeKeyNamespace
+
+  IdentifierDeliveryUser:
+    Type: GS2::Identifier::User
+    Properties:
+      Name: ${DeliveryUserName}
+
+  IdentifierDeliveryUserAttachPolicy:
+    Type: GS2::Identifier::AttachSecurityPolicy
+    Properties:
+      UserName: ${DeliveryUserName}
+      SecurityPolicyId: grn:gs2::system:identifier:securityPolicy:DeliveryAccess
+    DependsOn:
+      - IdentifierDeliveryUser
+
+  DistributorNamespace:
+    Type: GS2::Distributor::Namespace
+    Properties:
+      Name: ${DistributorNamespaceName}
+      AssumeUserId: !GetAttr IdentifierDeliveryUser.Item.UserId
+    DependsOn:
+      - IdentifierDeliveryUser
+
+  ExchangeNamespace:
+    Type: GS2::Exchange::Namespace
+    Properties:
+      Name: ${ExchangeNamespaceName}
+      KeyId: !GetAttr ExchangeKey.Item.KeyId
+    DependsOn:
+      - ExchangeKey
+
+  ExchangeSettings:
+    Type: GS2::Exchange::CurrentRateMaster
+    Properties:
+      NamespaceName: ${ExchangeNamespaceName}
+      Settings:
+        version: 2019-08-19
+        rateModels:
+          - name: ${ExchangeRateName}
+            metadata: SHOWCASE_0001
+            consumeActions:
+              - action: Gs2Money:WithdrawByUserId
+                request:
+                  namespaceName: ${MoneyNamespaceName}
+                  userId: "#{userId}"
+                  slot: "#{slot}"
+                  count: 5
+                  paidOnly: false
+            acquireActions:
+              - action: Gs2Stamina:RecoverStaminaByUserId
+                request:
+                  namespaceName: ${StaminaNamespaceName}
+                  staminaName: ${StaminaName}
+                  userId: "#{userId}"
+                  recoverValue: 10
+    DependsOn:
+      - ExchangeNamespace
+
+Outputs:
+  StaminaNamespaceName: !GetAttr StaminaNamespace.Item.Name
+  StaminaName: ${StaminaName}
+  ExchangeNamespaceName: !GetAttr ExchangeNamespace.Item.Name
+  ExchangeKeyId: !GetAttr ExchangeKey.Item.KeyId
+  ExchangeRateName: ${ExchangeRateName}
+  DistributorNamespaceName: ${DistributorNamespaceName}
