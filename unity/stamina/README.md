@@ -72,7 +72,7 @@ Run シーンを開きます。
 ------------|-----
 | gameSession | ログイン済みのゲームセッション |
 
-# ステートマシン
+# メインステートマシン
 
 ![ステートマシン](Docs/state_machine.jpg)
 
@@ -81,11 +81,49 @@ Run シーンを開きます。
 ### Initialize
 
 初期化ステートです。
-`AccountTakeOverMenuStateMachine::Initialize()` を呼び出すことで `MainMenu` ステートに遷移します。
+ウォレットステータスウィジェット と スタミナステータスウィジェット を作成します。
 
-### GetPropertiesProcessing
+### Idle
 
-最新のスタミナ・ウォレットの状態を取得します。
+ウォレットとスタミナの状態が取得し終わった状態です。
+サンプルでは画面上に残高とスタミナを表示し、残高やスタミナの横の「＋」ボタンが押されるまで待機します。
+
+### MoneyStore
+
+課金通貨の販売ウィジェットを表示している状態です。
+ウィジェットを閉じるまで待機します。
+
+### StaminaStore
+
+スタミナの販売ウィジェットを表示している状態です。
+ウィジェットを閉じるまで待機します。
+
+### ConsumeProgress
+
+スタミナを消費します。
+
+```csharp
+AsyncResult<EzConsumeResult> result = null;
+yield return gs2Client.client.Stamina.Consume(
+    r => { result = r; },
+    request.gameSession,
+    gs2StaminaSetting.staminaNamespaceName,
+    gs2StaminaSetting.staminaName,
+    consumeValue
+);
+```
+
+### Error
+
+エラーが発生した場合に遷移するステートです。
+
+# スタミナステータスステートマシン
+
+![ステートマシン](Docs/status_state_machine.jpg)
+
+### GetStaminaProcessing
+
+最新のスタミナの状態を取得します。
 
 ```csharp
 AsyncResult<EzGetStaminaResult> result = null;
@@ -99,47 +137,22 @@ yield return gs2Client.client.Stamina.GetStamina(
 
 ### Idle
 
-ウォレットの状態が取得し終わった状態です。
-サンプルでは画面上に残高を表示し、残高の横の「＋」ボタンが押されるまで待機します。
+スタミナの状態が取得し終わった状態です。
+サンプルでは画面上にスタミナを表示し、スタミナの横の「＋」ボタンが押されるまで待機します。
 
-### GetMoneyProductsProcessing
+# ストアステートマシン
 
-販売中の課金通貨の一覧を取得します。
-この処理は [課金通貨サンプル](../money) に準拠しています。
+![ステートマシン](Docs/store_state_machine.jpg)
 
-### MoneyStore
+### GetStaminaProcessing
 
-購入する課金通貨を選択します。
-この処理は [課金通貨サンプル](../money) に準拠しています。
+最新のスタミナの状態を取得します。
 
-### MoneyBuyProcessing
+### Store
 
-購入処理を実行します。
+購入確認画面です。
 
-この処理は [課金通貨サンプル](../money) に準拠しています。
-
-### StaminaStore
-
-スタミナの購入処理を実行します。
-ここでは直接 GS2-Stamina のスタミナ値を消費させていますが、
-実際にゲーム内から利用する際にはクエスト開始の対価として消費するなどスタンプシート形式でのリソース交換を行うようにすることをおすすめします。
-
-```csharp
-AsyncResult<EzConsumeResult> result = null;
-yield return gs2Client.client.Stamina.Consume(
-    r => { result = r; },
-    request.gameSession,
-    gs2StaminaSetting.staminaNamespaceName,
-    gs2StaminaSetting.staminaName,
-    consumeValue
-);
-```
-
-### ConsumeProgress
-
-スタミナの販売画面を表示します。
-
-### StaminaBuyProcessing
+### BuyProcessing
 
 スタミナの購入処理を実行します。
 
@@ -175,8 +188,3 @@ yield return machine.Execute();
 ```
 
 このようにスタンプシートを実行することで実際に課金通貨とスタミナ値の交換を実行します。
-
-### Error
-
-エラーが発生した場合に遷移するステートです。
-`メニューに戻る` を選択すると `Initialize` に戻ります

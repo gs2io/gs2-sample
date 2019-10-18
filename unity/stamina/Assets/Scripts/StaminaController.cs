@@ -6,7 +6,6 @@ using Gs2.Sample.Core;
 using Gs2.Sample.Money;
 using Gs2.Unity.Gs2Exchange.Result;
 using Gs2.Unity.Gs2Stamina.Result;
-using Gs2.Unity.Gs2Showcase.Model;
 using Gs2.Unity.Util;
 using LitJson;
 using UnityEngine;
@@ -14,21 +13,23 @@ using UnityEngine.Events;
 
 namespace Gs2.Sample.Stamina
 {
-    public class StaminaController : MonoBehaviour
+    public class StaminaController
     {
         /// <summary>
         /// GS2-Matchmaking の設定値
         /// </summary>
-        [SerializeField]
         public Gs2StaminaSetting gs2StaminaSetting;
 
         /// <summary>
         /// Gs2Client
         /// </summary>
-        [SerializeField]
         public Gs2Client gs2Client;
 
-        private void Validate()
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <returns></returns>
+        public void Initialize()
         {
             if (!gs2StaminaSetting)
             {
@@ -42,16 +43,6 @@ namespace Gs2.Sample.Stamina
         }
 
         /// <summary>
-        /// 初期化処理
-        /// </summary>
-        /// <returns></returns>
-        public void Initialize()
-        {
-            Validate();
-            
-        }
-
-        /// <summary>
         /// スタミナ値を取得
         /// </summary>
         /// <param name="callback"></param>
@@ -60,8 +51,6 @@ namespace Gs2.Sample.Stamina
             UnityAction<AsyncResult<EzGetStaminaResult>> callback
         )
         {
-            Validate();
-
             var request = Gs2Util.LoadGlobalGameObject<StaminaRequest>("StaminaRequest");
 
             AsyncResult<EzGetStaminaResult> result = null;
@@ -97,8 +86,6 @@ namespace Gs2.Sample.Stamina
             int consumeValue
         )
         {
-            Validate();
-
             var request = Gs2Util.LoadGlobalGameObject<StaminaRequest>("StaminaRequest");
 
             AsyncResult<EzConsumeResult> result = null;
@@ -133,8 +120,6 @@ namespace Gs2.Sample.Stamina
             UnityAction<AsyncResult<object>> callback
         )
         {
-            Validate();
-
             var request = Gs2Util.LoadGlobalGameObject<StaminaRequest>("StaminaRequest");
 
             string stampSheet = null;

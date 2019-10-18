@@ -1,4 +1,5 @@
-﻿using Gs2.Sample.AccountRegistrationLoginSample;
+﻿using System.Collections;
+using Gs2.Sample.AccountRegistrationLoginSample;
 using Gs2.Sample.Core;
 using Gs2.Sample.Money;
 using Gs2.Unity.Gs2Account.Model;
@@ -14,10 +15,16 @@ public class Run : MonoBehaviour
         SceneManager.LoadScene("AccountRegistrationLogin");
     }
 
+    public IEnumerator LoadScene()
+    {
+        SceneManager.LoadScene("Money");
+        yield break;
+    }
+
     public void OnLogin(EzAccount account, GameSession session)
     {
         var request = Gs2Util.LoadGlobalResource<MoneyRequest>("MoneyRequest");
         request.gameSession = session;
-        SceneManager.LoadScene("Money");
+        StartCoroutine(LoadScene());
     }
 }

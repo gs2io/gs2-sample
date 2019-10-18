@@ -19,7 +19,7 @@ namespace Gs2.Sample.Stamina
     public class ErrorEvent : UnityEvent<Gs2Exception>
     {
     }
-
+    
     public class Gs2StaminaSetting : MonoBehaviour
     {
         /// <summary>

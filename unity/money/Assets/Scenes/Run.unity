@@ -149,15 +149,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 592938175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b9acb57dc1b76419896caf20274bd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f3bae222415cbc408953dc8b0142dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyNamespaceName: 
-  showcaseNamespaceName: 
-  showcaseName: 
-  showcaseKeyId: 
-  limitNamespaceName: 
-  distributorNamespaceName: 
+  moneyNamespaceName: money-0001
+  showcaseNamespaceName: money-showcase
+  showcaseName: money-showcase
+  showcaseKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:money-showcase-key:key:stamp-sheet-key
+  limitNamespaceName: money-showcase-limit
+  distributorNamespaceName: money-distributor
+  onOpenStatus:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Gs2.Sample.Money.OpenStatusEvent, Gs2.Sample.Money, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCloseStatus:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Gs2.Sample.Money.CloseStatusEvent, Gs2.Sample.Money, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onOpenStore:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Gs2.Sample.Money.OpenStoreEvent, Gs2.Sample.Money, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCloseStore:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Gs2.Sample.Money.CloseStoreEvent, Gs2.Sample.Money, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onGetWallet:
     m_PersistentCalls:
       m_Calls: []
@@ -190,9 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountNamespaceName: 
-  accountEncryptionKeyId: 
-  gatewayNamespaceName: 
+  accountNamespaceName: game-0001
+  accountEncryptionKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:account-encryption-key-namespace:key:account-encryption-key
+  gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []
@@ -241,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0135673ecff9db4abf093875345aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientId: 
-  clientSecret: 
+  clientId: GKItBvrApBYxd2th0s_d0j7YJmqV0mSYs_TCOU0oN88wljVdefSsNg4Hi4c1U55HxuQ
+  clientSecret: QVVCMWJLaEpmYkdHYXVQVVh1M3N5MDM4ajMybThSVGU=
 --- !u!114 &592938179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2129933824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b06e094424af4206a1e875e67c30862c, type: 3}
+  m_Script: {fileID: 11500000, guid: ba06ecd4ed82e1b44b6c3a2922a09dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2129933826

@@ -18,41 +18,50 @@ using UnityEngine.Events;
 
 namespace Gs2.Sample.Money
 {
-    public class MoneyController : MonoBehaviour
+    public class MoneyController
     {
 #if UNITY_IPHONE
-        private const int Slot = 1;
+        public const int Slot = 1;
 #elif UNITY_ANDROID
-        private const int Slot = 2;
+        public const int Slot = 2;
 #else
-        private const int Slot = 0;
+        public const int Slot = 0;
 #endif
-
-        /// <summary>
-        /// GS2-Matchmaking の設定値
-        /// </summary>
-        [SerializeField]
-        public Gs2MoneySetting gs2MoneySetting;
 
         /// <summary>
         /// Gs2Client
         /// </summary>
-        [SerializeField]
-        public Gs2Client gs2Client;
+        private Gs2Client _gs2Client;
 
-        private void Validate()
+        /// <summary>
+        /// GS2 の設定値
+        /// </summary>
+        public Gs2MoneySetting gs2MoneySetting;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public void Initialize()
         {
+            if (!_gs2Client)
+            {
+                _gs2Client = Gs2Util.LoadGlobalGameObject<Gs2Client>("Gs2Settings");
+            }
+
             if (!gs2MoneySetting)
             {
                 gs2MoneySetting = Gs2Util.LoadGlobalGameObject<Gs2MoneySetting>("Gs2Settings");
             }
-
-            if (!gs2Client)
-            {
-                gs2Client = Gs2Util.LoadGlobalGameObject<Gs2Client>("Gs2Settings");
-            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="salesItem"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         private T GetAcquireAction<T>(
             EzSalesItem salesItem,
             string action
@@ -66,6 +75,13 @@ namespace Gs2.Sample.Money
             return (T)typeof(T).GetMethod("FromDict")?.Invoke(null, new object[] { Gs2Util.RemovePlaceholder(JsonMapper.ToObject(item.Request)) });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="salesItem"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         private T GetConsumeAction<T>(
             EzSalesItem salesItem,
             string action
@@ -80,16 +96,6 @@ namespace Gs2.Sample.Money
         }
 
         /// <summary>
-        /// 初期化処理
-        /// </summary>
-        /// <returns></returns>
-        public void Initialize()
-        {
-            Validate();
-            
-        }
-
-        /// <summary>
         /// 課金通貨のウォレットを取得
         /// </summary>
         /// <param name="callback"></param>
@@ -98,12 +104,12 @@ namespace Gs2.Sample.Money
             UnityAction<AsyncResult<EzGetResult>> callback
         )
         {
-            Validate();
-
+            Initialize();
+            
             var request = Gs2Util.LoadGlobalGameObject<MoneyRequest>("MoneyRequest");
 
             AsyncResult<EzGetResult> result = null;
-            yield return gs2Client.client.Money.Get(
+            yield return _gs2Client.client.Money.Get(
                 r => { result = r; },
                 request.gameSession,
                 gs2MoneySetting.moneyNamespaceName,
@@ -133,12 +139,12 @@ namespace Gs2.Sample.Money
             UnityAction<AsyncResult<List<Product>>> callback
         )
         {
-            Validate();
+            Initialize();
 
             var request = Gs2Util.LoadGlobalGameObject<MoneyRequest>("MoneyRequest");
 
             AsyncResult<EzGetShowcaseResult> result = null;
-            yield return gs2Client.client.Showcase.GetShowcase(
+            yield return _gs2Client.client.Showcase.GetShowcase(
                 r => { result = r; },
                 request.gameSession,
                 gs2MoneySetting.showcaseNamespaceName,
@@ -175,7 +181,7 @@ namespace Gs2.Sample.Money
                 int? boughtCount = null;
                 if(countUpRequest != null) {
                     AsyncResult<EzGetCounterResult> result2 = null;
-                    yield return gs2Client.client.Limit.GetCounter(
+                    yield return _gs2Client.client.Limit.GetCounter(
                         r => { result2 = r; },
                         request.gameSession,
                         countUpRequest.namespaceName,
@@ -218,7 +224,7 @@ namespace Gs2.Sample.Money
             Product product
         )
         {
-            Validate();
+            Initialize();
 
             var request = Gs2Util.LoadGlobalGameObject<MoneyRequest>("MoneyRequest");
 
@@ -244,7 +250,7 @@ namespace Gs2.Sample.Money
             string stampSheet = null;
             {
                 AsyncResult<EzBuyResult> result = null;
-                yield return gs2Client.client.Showcase.Buy(
+                yield return _gs2Client.client.Showcase.Buy(
                     r => { result = r; },
                     request.gameSession,
                     gs2MoneySetting.showcaseNamespaceName,
@@ -279,7 +285,7 @@ namespace Gs2.Sample.Money
             {
                 var machine = new StampSheetStateMachine(
                     stampSheet,
-                    gs2Client.client,
+                    _gs2Client.client,
                     gs2MoneySetting.distributorNamespaceName,
                     gs2MoneySetting.showcaseKeyId
                 );
