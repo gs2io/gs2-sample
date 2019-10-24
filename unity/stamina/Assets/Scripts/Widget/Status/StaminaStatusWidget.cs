@@ -1,7 +1,8 @@
 ﻿﻿using System;
 using Gs2.Core.Util;
 using Gs2.Sample.Stamina.Internal;
-using UnityEngine;
+ using Gs2.Unity.Gs2Stamina.Model;
+ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gs2.Sample.Stamina
@@ -22,6 +23,24 @@ namespace Gs2.Sample.Stamina
         /// ステートマシン
         /// </summary>
         private StaminaStatusWidgetStateMachine _stateMachine;
+
+        private string _originalStaminaValueText;
+        
+        private void OnGetStamina(EzStamina stamina)
+        {
+            if (staminaValue != null)
+            {
+                staminaValue.text =
+                    _originalStaminaValueText
+                        .Replace("{current_stamina}", stamina.Value.ToString())
+                        .Replace("{max_stamina}", stamina.MaxValue.ToString());
+            }
+        }
+
+        private void OnBuy()
+        {
+            Refresh();
+        }
 
         private void Start()
         {
@@ -49,7 +68,23 @@ namespace Gs2.Sample.Stamina
                 );
             }
 
+            _originalStaminaValueText = staminaValue.text;
+            staminaValue.text = _originalStaminaValueText
+                .Replace("{current_stamina}", "--")
+                .Replace("{max_stamina}", "--");
+            nextRecoverCountDown.text = "--:--";
+
             _stateMachine.controller.Initialize();
+            _stateMachine.controller.gs2StaminaSetting.onGetStamina.AddListener(
+                OnGetStamina
+            );
+            _stateMachine.controller.gs2StaminaSetting.onBuy.AddListener(
+                OnBuy
+            );
+            GameObject.Find("Gs2StaminaInternalSetting").GetComponent<Gs2StaminaInternalSetting>().onRefreshStatus.AddListener(
+                Refresh
+            );
+
             _stateMachine.onChangeState.AddListener(
                 (_, state) =>
                 {
@@ -58,32 +93,21 @@ namespace Gs2.Sample.Stamina
                 }
             );
 
-            var originalStaminaValueText = staminaValue.text;
-            _stateMachine.controller.gs2StaminaSetting.onGetStamina.AddListener(
-                stamina =>
-                {
-                    if (staminaValue != null)
-                    {
-                        staminaValue.text =
-                            originalStaminaValueText
-                                .Replace("{current_stamina}", stamina.Value.ToString())
-                                .Replace("{max_stamina}", stamina.MaxValue.ToString());
-                    }
-                }
-            );
-            _stateMachine.controller.gs2StaminaSetting.onBuy.AddListener(
-                () =>
-                {
-                    _stateMachine.Refresh();
-                }
-            );
-            staminaValue.text = originalStaminaValueText
-                .Replace("{current_stamina}", "--")
-                .Replace("{max_stamina}", "--");
-            nextRecoverCountDown.text = "--:--";
-
             // 画面の初期状態を設定
             InActiveAll();
+        }
+
+        private void OnDestroy()
+        {
+            _stateMachine.controller.gs2StaminaSetting.onGetStamina.RemoveListener(
+                OnGetStamina
+            );
+            _stateMachine.controller.gs2StaminaSetting.onBuy.RemoveListener(
+                OnBuy
+            );
+            GameObject.Find("Gs2StaminaInternalSetting").GetComponent<Gs2StaminaInternalSetting>().onRefreshStatus.RemoveListener(
+                Refresh
+            );
         }
 
         /// <summary>
@@ -143,6 +167,11 @@ namespace Gs2.Sample.Stamina
                     nextRecoverCountDown.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
                 }
             }
+        }
+
+        public void Refresh()
+        {
+            _stateMachine.Refresh();
         }
 
         /// <summary>

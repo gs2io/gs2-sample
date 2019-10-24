@@ -1,6 +1,7 @@
 ﻿﻿using System;
  using Gs2.Sample.Core;
  using Gs2.Sample.Money.Internal;
+ using Gs2.Unity.Gs2Money.Model;
  using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,23 @@ namespace Gs2.Sample.Money
         /// ステートマシン
         /// </summary>
         private MoneyStatusWidgetStateMachine _stateMachine;
+
+        private string originalWalletValueText;
+
+        private void OnGetWallet(EzWalletDetail wallet)
+        {
+            if (walletValue != null)
+            {
+                walletValue.text =
+                    originalWalletValueText
+                        .Replace("{wallet_value}", (wallet.Free + wallet.Paid).ToString());
+            }
+        }
+
+        private void OnBuy(Product product)
+        {
+            Refresh();
+        }
 
         private void Start()
         {
@@ -45,7 +63,21 @@ namespace Gs2.Sample.Money
                 );
             }
 
+            originalWalletValueText = walletValue.text;
+            walletValue.text = originalWalletValueText
+                .Replace("{wallet_value}", "---");
+            
             _stateMachine.controller.Initialize();
+            _stateMachine.controller.gs2MoneySetting.onGetWallet.AddListener(
+                OnGetWallet
+            );
+            _stateMachine.controller.gs2MoneySetting.onBuy.AddListener(
+                OnBuy
+            );
+            GameObject.Find("Gs2MoneyInternalSetting").GetComponent<Gs2MoneyInternalSetting>().onRefreshStatus.AddListener(
+                Refresh
+            );
+
             _stateMachine.onChangeState.AddListener(
                 (_, state) =>
                 {
@@ -54,29 +86,21 @@ namespace Gs2.Sample.Money
                 }
             );
 
-            var originalWalletValueText = walletValue.text;
-            _stateMachine.controller.gs2MoneySetting.onGetWallet.AddListener(
-                wallet =>
-                {
-                    if (walletValue != null)
-                    {
-                        walletValue.text =
-                            originalWalletValueText
-                                .Replace("{wallet_value}", (wallet.Free + wallet.Paid).ToString());
-                    }
-                }
-            );
-            _stateMachine.controller.gs2MoneySetting.onBuy.AddListener(
-                wallet =>
-                {
-                    _stateMachine.Refresh();
-                }
-            );
-            walletValue.text = originalWalletValueText
-                .Replace("{wallet_value}", "---");
-
             // 画面の初期状態を設定
             InActiveAll();
+        }
+
+        private void OnDestroy()
+        {
+            _stateMachine.controller.gs2MoneySetting.onGetWallet.RemoveListener(
+                OnGetWallet
+            );
+            _stateMachine.controller.gs2MoneySetting.onBuy.RemoveListener(
+                OnBuy
+            );
+            GameObject.Find("Gs2MoneyInternalSetting").GetComponent<Gs2MoneyInternalSetting>().onRefreshStatus.RemoveListener(
+                Refresh
+            );
         }
 
         /// <summary>
@@ -103,6 +127,11 @@ namespace Gs2.Sample.Money
                 default:
                     return transform.Find("Panel").gameObject;
             }
+        }
+
+        public void Refresh()
+        {
+            _stateMachine.Refresh();
         }
 
         public void ClickToOpenStore()

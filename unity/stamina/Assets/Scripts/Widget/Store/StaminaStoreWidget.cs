@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Gs2.Sample.Stamina.Internal;
+ using Gs2.Unity.Gs2Stamina.Model;
 
  namespace Gs2.Sample.Stamina
 {
@@ -18,6 +19,14 @@ using Gs2.Sample.Stamina.Internal;
         public Text buyStaminaButton;
 
         private string _originalBuyStaminaButtonText = null;
+
+        private void OnGetStamina(EzStamina stamina)
+        {
+            buyStaminaButton.text = _originalBuyStaminaButtonText
+                .Replace("{gem_num}", "5")
+                .Replace("{current_stamina}", stamina.Value.ToString())
+                .Replace("{recovered_stamina}", (stamina.Value + 10).ToString());
+        }
 
         private void Start()
         {
@@ -47,13 +56,7 @@ using Gs2.Sample.Stamina.Internal;
             _stateMachine.controller.Initialize();
             _originalBuyStaminaButtonText = buyStaminaButton.text;
             _stateMachine.controller.gs2StaminaSetting.onGetStamina.AddListener(
-                stamina =>
-                {
-                    buyStaminaButton.text = _originalBuyStaminaButtonText
-                        .Replace("{gem_num}", "5")
-                        .Replace("{current_stamina}", stamina.Value.ToString())
-                        .Replace("{recovered_stamina}", (stamina.Value + 10).ToString());
-                }
+                OnGetStamina
             );
             _stateMachine.onChangeState.AddListener(
                 (_, state) =>
@@ -65,6 +68,13 @@ using Gs2.Sample.Stamina.Internal;
 
             // 画面の初期状態を設定
             InActiveAll();
+        }
+
+        private void OnDestroy()
+        {
+            _stateMachine.controller.gs2StaminaSetting.onGetStamina.RemoveListener(
+                OnGetStamina
+            );
         }
 
         /// <summary>

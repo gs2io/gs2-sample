@@ -9,6 +9,11 @@ namespace Gs2.Sample.Stamina.Internal
     }
 
     [System.Serializable]
+    public class RefreshStatusEvent : UnityEvent
+    {
+    }
+
+    [System.Serializable]
     public class CloseStatusEvent : UnityEvent<StaminaStatusWidget>
     {
     }
@@ -30,6 +35,12 @@ namespace Gs2.Sample.Stamina.Internal
         /// </summary>
         [SerializeField]
         public OpenStatusEvent onOpenStatus = new OpenStatusEvent();
+        
+        /// <summary>
+        /// ウォレットを開いたとき
+        /// </summary>
+        [SerializeField]
+        public RefreshStatusEvent onRefreshStatus = new RefreshStatusEvent();
 
         /// <summary>
         /// ウォレットを閉じたとき

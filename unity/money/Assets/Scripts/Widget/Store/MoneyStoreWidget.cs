@@ -1,5 +1,6 @@
 ﻿﻿using System;
-using Gs2.Sample.Core;
+ using System.Collections.Generic;
+ using Gs2.Sample.Core;
  using Gs2.Sample.Money.Internal;
  using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,34 @@ namespace Gs2.Sample.Money
         /// </summary>
         private MoneyStoreWidgetStateMachine _stateMachine;
 
+        private void OnGetProducts(List<Product> products)
+        {
+            if (productViewPort != null)
+            {
+                for (int i = 0; i < productViewPort.transform.childCount; i++)
+                {
+                    Destroy(productViewPort.transform.GetChild(i).gameObject);
+                }
+
+                foreach (var product in products)
+                {
+                    var productView = Gs2Util.LoadGlobalResource<ProductView>();
+                    productView.transform.SetParent(productViewPort.transform);
+                    productView.Initialize(product);
+                    productView.transform.localScale = new Vector3(1, 1, 1);
+                    if (!productView.Sold)
+                    {
+                        productView.transform.GetComponentInChildren<Button>().onClick.AddListener(
+                            () =>
+                            {
+                                ClickToBuy(product);
+                            }
+                        );
+                    }
+                }
+            }
+        }
+        
         private void Start()
         {
             var animator = GetComponent<Animator>();
@@ -44,6 +73,10 @@ namespace Gs2.Sample.Money
             }
 
             _stateMachine.controller.Initialize();
+            _stateMachine.controller.gs2MoneySetting.onGetProducts.AddListener(
+                OnGetProducts
+            );
+            
             _stateMachine.onChangeState.AddListener(
                 (_, state) =>
                 {
@@ -52,38 +85,15 @@ namespace Gs2.Sample.Money
                 }
             );
 
-            _stateMachine.controller.gs2MoneySetting.onGetProducts.AddListener(
-                products =>
-                {
-                    if (productViewPort != null)
-                    {
-                        for (int i = 0; i < productViewPort.transform.childCount; i++)
-                        {
-                            Destroy(productViewPort.transform.GetChild(i).gameObject);
-                        }
-
-                        foreach (var product in products)
-                        {
-                            var productView = Gs2Util.LoadGlobalResource<ProductView>();
-                            productView.transform.SetParent(productViewPort.transform);
-                            productView.Initialize(product);
-                            productView.transform.localScale = new Vector3(1, 1, 1);
-                            if (!productView.Sold)
-                            {
-                                productView.transform.GetComponentInChildren<Button>().onClick.AddListener(
-                                    () =>
-                                    {
-                                        ClickToBuy(product);
-                                    }
-                                );
-                            }
-                        }
-                    }
-                }
-            );
-            
             // 画面の初期状態を設定
             InActiveAll();
+        }
+
+        private void OnDestroy()
+        {
+            _stateMachine.controller.gs2MoneySetting.onGetProducts.RemoveListener(
+                OnGetProducts
+            );
         }
 
         /// <summary>

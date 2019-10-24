@@ -27,6 +27,7 @@ namespace Gs2.Sample.Money
             OpenStatus,
             OpenStore,
             CloseStore,
+            Refresh,
             Back,
             Error,
         }

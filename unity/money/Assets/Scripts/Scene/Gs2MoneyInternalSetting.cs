@@ -9,6 +9,11 @@ namespace Gs2.Sample.Money.Internal
     }
 
     [System.Serializable]
+    public class RefreshStatusEvent : UnityEvent
+    {
+    }
+
+    [System.Serializable]
     public class CloseStatusEvent : UnityEvent<MoneyStatusWidget>
     {
     }
@@ -30,6 +35,12 @@ namespace Gs2.Sample.Money.Internal
         /// </summary>
         [SerializeField]
         public OpenStatusEvent onOpenStatus = new OpenStatusEvent();
+
+        /// <summary>
+        /// ウォレットを開いたとき
+        /// </summary>
+        [SerializeField]
+        public RefreshStatusEvent onRefreshStatus = new RefreshStatusEvent();
 
         /// <summary>
         /// ウォレットを閉じたとき
