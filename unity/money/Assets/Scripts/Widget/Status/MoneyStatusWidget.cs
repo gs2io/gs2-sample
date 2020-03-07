@@ -22,7 +22,7 @@ namespace Gs2.Sample.Money
 
         private string originalWalletValueText;
 
-        private void OnGetWallet(EzWalletDetail wallet)
+        private void OnGetWallet(EzWallet wallet)
         {
             if (walletValue != null)
             {

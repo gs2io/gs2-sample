@@ -43,7 +43,7 @@ namespace Gs2.Sample.Money
         /// <summary>
         /// ウォレット
         /// </summary>
-        public EzWalletDetail wallet;
+        public EzWallet wallet;
 
         /// <summary>
         /// 

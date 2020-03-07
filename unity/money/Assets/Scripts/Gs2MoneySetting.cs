@@ -10,7 +10,7 @@ using UnityEngine.Events;
 namespace Gs2.Sample.Money
 {
     [System.Serializable]
-    public class GetWalletEvent : UnityEvent<EzWalletDetail>
+    public class GetWalletEvent : UnityEvent<EzWallet>
     {
     }
 

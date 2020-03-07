@@ -1,3 +1,11 @@
+## [1.23.1] - 2019-11-18
+### Added
+- UWP - Additional logging during initialization to diagnose developer portal misconfigurations. See https://docs.microsoft.com/en-us/windows/uwp/monetize/in-app-purchases-and-trials#how-to-use-product-ids-for-add-ons-in-your-code for a broad discussion of Windows.ApplicationModel.Store configuration.
+
+### Fixed
+- GooglePlay - Fix offline purchases inconsistently generating OnPurchaseFailed callbacks. Changes 1.22.0 "Fixed GooglePlay store consumable products already owned error due to network issues." - developers may choose to handle the `PurchaseFailureReason.DuplicateTransaction` for a ProductType.Consumable by rewarding the user with the product, and presuming that Unity IAP will automatically complete the transaction.
+- Improved compatibility with Unity 5.3 and 5.4.
+
 ## [1.23.0] - 2019-10-16
 ### Added
 - UDP - Upgrade to version 1.2.0: new installer to manage previously-installed versions in Project; new UI for UDP Settings window; injection of SDK version information into app manifest; premium game support; user permissions aligned between Unity editor and UDP console; improved security around the transmission of telemetry data (the data you see in your reporting dashboard) between the repacked games and the UDP backend.
@@ -8,9 +16,7 @@
 
 ### Fixed
 - Improved installer compatibility with Unity 2018.4 and 2019.x
-
-## [1.22.1] - 2019-08-13
-### Fixed
+- GooglePlay - Automatic product restoration across devices when logged into the same Google account.
 - GooglePlay - SubscriptionInfo.getSubscriptionInfo() KeyNotFoundException when parsing receipts which omit expected fields.
 - GooglePlay - IStoreListener.OnInitializeFailed / IStoreCallback.OnSetupFailed should return InitializationFailureReason.AppNotKnown error when user changes password off-device - user must login. Previously erroneously generated infinite error 6 codes when fetching purchase history after password change.
 - OverflowException when initializing if device locale used the comma (“,”) character as decimal separator.
