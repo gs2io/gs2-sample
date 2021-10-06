@@ -1,9 +1,9 @@
-﻿﻿﻿using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gs2.Core;
-  using Gs2.Sample.Quest.Internal;
-  using Gs2.Unity.Gs2Quest.Model;
+using Gs2.Sample.Quest.Internal;
+using Gs2.Unity.Gs2Quest.Model;
 using Gs2.Unity.Gs2Quest.Result;
 using UnityEngine;
 using UnityEngine.Events;

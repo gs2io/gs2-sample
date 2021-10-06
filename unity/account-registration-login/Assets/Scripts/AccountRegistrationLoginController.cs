@@ -149,7 +149,7 @@
             }
             else
             {
-                var result = new NotFoundException(new List<RequestError>());
+                var result = new NotFoundException("Account not found");
                 gs2AccountSetting.onError.Invoke(
                     result
                 );
@@ -206,7 +206,7 @@
             AsyncResult<GameSession> result1 = null;
             yield return gs2Client.profile.Login(
                 new Gs2AccountAuthenticator(
-                    gs2Client.profile.Gs2Session,
+                    gs2Client.profile.Gs2RestSession,
                     gs2AccountSetting.accountNamespaceName,
                     gs2AccountSetting.accountEncryptionKeyId,
                     account.UserId,
@@ -223,6 +223,7 @@
                 gs2AccountSetting.onError.Invoke(
                     result1.Error
                 );
+                callback.Invoke(result1);
                 yield break;
             }
 
@@ -241,6 +242,7 @@
                 gs2AccountSetting.onError.Invoke(
                     result2.Error
                 );
+                callback.Invoke(result1);
                 yield break;
             }
 

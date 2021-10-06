@@ -1,7 +1,7 @@
-﻿﻿﻿using System;
-  using System.Collections.Generic;
-  using Gs2.Core.Exception;
-  using Gs2.Sample.Quest.Internal;
+﻿using System;
+using System.Collections.Generic;
+using Gs2.Core.Exception;
+using Gs2.Sample.Quest.Internal;
 using Gs2.Unity.Gs2Quest.Model;
 using UnityEngine;
 using UnityEngine.UI;

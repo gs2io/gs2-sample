@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gs2.Gs2Stamina.Request;
 using Gs2.Unity.Gs2Quest.Model;
-using LitJson;
 
 namespace Gs2.Sample.Quest
 {
@@ -25,7 +24,7 @@ namespace Gs2.Sample.Quest
             );
             if (action != null)
             {
-                consumeStamina = action.consumeValue;
+                consumeStamina = action.ConsumeValue;
             }
 
             if (currentCompletedQuestList == null)

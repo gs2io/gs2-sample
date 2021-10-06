@@ -1,13 +1,12 @@
-﻿{
+{
     "name": "Gs2.Sample.Stamina",
     "references": [
-        "TMPro",
         "Gs2",
         "Gs2.Sample.Core",
         "Gs2.Sample.AccountRegistrationLogin",
-        "Gs2.Sample.Money"
+        "Gs2.Sample.Money",
+        "Gs2.Unity"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

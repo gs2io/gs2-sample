@@ -1,5 +1,4 @@
-﻿using LitJson;
-
+﻿
 namespace Gs2.Sample.Money
 {
     public class Product

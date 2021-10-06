@@ -5,7 +5,7 @@ using Gs2.Unity.Gs2Realtime;
 using Gs2.Unity.Gs2Realtime.Model;
 using UnityEngine;
 using UnityEngine.Events;
-using WebSocketSharp;
+using Gs2.Util.WebSocketSharp;
 
 namespace Scenes.Menu
 {

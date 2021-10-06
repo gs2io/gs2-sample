@@ -231,7 +231,7 @@ using UnityEngine.Events;
 
         public bool CloseStaminaStore()
         {
-            if (_state == State.StaminaStore || _state == State.Error)
+            if (_state == State.StaminaStore || _state == State.SelectQuest || _state == State.Error)
             {
                 _animator.SetTrigger(Trigger.Back.ToString());
                 return true;

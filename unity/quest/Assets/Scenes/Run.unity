@@ -158,23 +158,17 @@ MonoBehaviour:
   staminaName: main
   exchangeNamespaceName: stamina-exchange
   exchangeRateName: money-stamima
-  exchangeKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:stamina-exchange-key:key:stamp-sheet-key
+  exchangeKeyId: 
   distributorNamespaceName: stamina-distributor
   onGetStamina:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Stamina.GetStaminaEvent, Gs2.Sample.Stamina, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onBuy:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Stamina.BuyEvent, Gs2.Sample.Stamina, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Stamina.ErrorEvent, Gs2.Sample.Stamina, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,23 +182,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accountNamespaceName: game-0001
-  accountEncryptionKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:account-encryption-key-namespace:key:account-encryption-key
+  accountEncryptionKeyId: 
   gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoadAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onSaveAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.SaveAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onCreateAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.CreateAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onLogin:
     m_PersistentCalls:
       m_Calls:
@@ -219,13 +207,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoginEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.ErrorEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,8 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0135673ecff9db4abf093875345aeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clientId: GKItBvrApBYxd2th0s_d0j7YJmqV0mSYs_TCOU0oN88wljVdefSsNg4Hi4c1U55HxuQ
-  clientSecret: QVVCMWJLaEpmYkdHYXVQVVh1M3N5MDM4ajMybThSVGU=
+  clientId: 
+  clientSecret: 
 --- !u!114 &592938179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,29 +266,21 @@ MonoBehaviour:
   moneyNamespaceName: money-0001
   showcaseNamespaceName: money-showcase
   showcaseName: money-showcase
-  showcaseKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:money-showcase-key:key:stamp-sheet-key
+  showcaseKeyId: 
   limitNamespaceName: money-showcase-limit
   distributorNamespaceName: money-distributor
   onGetWallet:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Money.GetWalletEvent, Gs2.Sample.Money, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onGetProducts:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Money.GetProductsEvent, Gs2.Sample.Money, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onBuy:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Money.BuyEvent, Gs2.Sample.Money, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Money.ErrorEvent, Gs2.Sample.Money, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &592938182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,44 +294,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questNamespaceName: quest-0001
-  questKeyId: grn:gs2:ap-northeast-1:0uUD6p9U-project-0001:key:quest-key:key:stamp-sheet-key
+  questKeyId: 
   distributorNamespaceName: quest-distributor
   jobQueueNamespaceName: quest-queue
   onListCompletedQuestsModel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.ListCompletedQuestsEvent, Gs2.Sample.Quest, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onListGroupQuestModel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.ListQuestGroupModelEvent, Gs2.Sample.Quest, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onListQuestModel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.ListQuestModelEvent, Gs2.Sample.Quest, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.StartEvent, Gs2.Sample.Quest, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   onGetProgress:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.GetProgressEvent, Gs2.Sample.Quest, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.EndEvent, Gs2.Sample.Quest, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Quest.ErrorEvent, Gs2.Sample.Quest, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!1 &2129933824
 GameObject:
   m_ObjectHideFlags: 0

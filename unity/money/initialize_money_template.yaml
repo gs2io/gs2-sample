@@ -92,9 +92,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-120-jpy
-                  metadata:
-                    price: 120
-                    currencyCount: 50
+                  metadata: "price: 120 currencyCount: 50"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -113,9 +111,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-490-jpy
-                  metadata:
-                    price: 490
-                    currencyCount: 200
+                  metadata: "price: 490 currencyCount: 200"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -134,9 +130,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-1220-jpy
-                  metadata:
-                    price: 1220
-                    currencyCount: 490
+                  metadata: "price: 1220 currencyCount: 490"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -155,9 +149,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-2440-jpy
-                  metadata:
-                    price: 2440
-                    currencyCount: 1000
+                  metadata: "price: 2440 currencyCount: 1000"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -176,9 +168,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-3060-jpy
-                  metadata:
-                    price: 3060
-                    currencyCount: 1250
+                  metadata: "price: 3060 currencyCount: 1250"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -197,9 +187,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-3920-jpy
-                  metadata:
-                    price: 3920
-                    currencyCount: 1600
+                  metadata: "price: 3920 currencyCount: 1600"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -218,9 +206,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-4900-jpy
-                  metadata:
-                    price: 4900
-                    currencyCount: 2000
+                  metadata: "price: 4900 currencyCount: 2000"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -239,9 +225,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-10000-jpy
-                  metadata:
-                    price: 10000
-                    currencyCount: 4300
+                  metadata: "price: 10000 currencyCount: 4300"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:
@@ -260,10 +244,7 @@ Resources:
               - type: salesItem
                 salesItem:
                   name: currency-special-offer-120-jpy
-                  metadata:
-                    price: 120
-                    currencyCount: 75
-                    boughtOnlyOnce: true
+                  metadata: "price: 120 currencyCount: 75 boughtOnlyOnce: true"
                   consumeActions:
                     - action: Gs2Money:RecordReceipt
                       request:

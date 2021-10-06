@@ -1,12 +1,12 @@
 ﻿{
   "name": "io.gs2.unity.sample.realtime",
   "displayName": "GS2 SDK for Unity Sample Realtime",
-  "version": "0.1.0",
+  "version": "2021.10.1",
   "unity": "2019.2",
   "description": "Game Server Services SDK for Unity Sample - Realtime.",
   "keywords": ["GS2", "Game Server Services", "BaaS", "mBaaS", "Server", "Sample"],
   "category": "Sample",
   "dependencies": {
-    "io.gs2.unity.sdk": "0.1.0"
+    "io.gs2.unity.sdk": "2021.10.1"
   }
 }

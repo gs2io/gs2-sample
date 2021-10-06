@@ -2,7 +2,7 @@
     "name": "Gs2.Sample.Core",
     "references": [
         "Gs2",
-        "TMPro"
+        "Gs2.Unity"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

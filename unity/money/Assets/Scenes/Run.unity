@@ -152,12 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3bae222415cbc408953dc8b0142dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyNamespaceName: 
-  showcaseNamespaceName: 
-  showcaseName: 
+  moneyNamespaceName: money-0001
+  showcaseNamespaceName: money-showcase
+  showcaseName: money-showcase
   showcaseKeyId: 
-  limitNamespaceName: 
-  distributorNamespaceName: 
+  limitNamespaceName: money-showcase-limit
+  distributorNamespaceName: money-distributor
   onGetWallet:
     m_PersistentCalls:
       m_Calls: []
@@ -182,9 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountNamespaceName: 
+  accountNamespaceName: game-0001
   accountEncryptionKeyId: 
-  gatewayNamespaceName: 
+  gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []

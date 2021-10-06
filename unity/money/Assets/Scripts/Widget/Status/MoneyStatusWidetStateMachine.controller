@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1101 &-8438596323743660140
 AnimatorStateTransition:
@@ -87,11 +87,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e077a25a44bb457d8cedca7277a53a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallet:
+    Slot: 0
+    Paid: 0
+    Free: 0
+    UpdatedAt: 0
   onChangeState:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Money.MoneyStatusWidgetStateMachine+ChangeStateEvent, Gs2.Sample.Money,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1102 &-5411417643509325700
 AnimatorState:
   serializedVersion: 5
@@ -162,31 +165,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: GetWalletSucceed
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: GetWalletFailed
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Refresh
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Close
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

@@ -7,7 +7,7 @@ using Gs2.Gs2Matchmaking.Model;
 using Gs2.Sample.Core;
 using Gs2.Unity.Gs2Matchmaking.Model;
 using Gs2.Unity.Gs2Matchmaking.Result;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -42,6 +42,22 @@ namespace Gs2.Sample.Matchmaking
         /// </summary>
         private bool _complete;
 
+        /// <summary>
+        /// 通知が届いたか
+        /// </summary>
+        private bool _recievedNotification;
+        
+        /// <summary>
+        /// 通知の種別
+        /// </summary>
+        private string _issuer;
+
+        /// <summary>
+        /// 通知で対象になっているUserId
+        /// </summary>
+        /// <returns></returns>
+        private string _userId;
+        
         private void Validate()
         {
             if (!gs2MatchmakingSetting)
@@ -56,7 +72,8 @@ namespace Gs2.Sample.Matchmaking
         }
 
         /// <summary>
-        /// 
+        /// 任意のタイミングで届く通知
+        /// ※メインスレッド外
         /// </summary>
         /// <param name="message"></param>
         public void PushNotificationHandler(NotificationMessage message)
@@ -64,31 +81,61 @@ namespace Gs2.Sample.Matchmaking
             Debug.Log(message.issuer);
             
             if (!message.issuer.StartsWith("Gs2Matchmaking:")) return;
-            
+
+            _issuer = message.issuer;
+
+            _recievedNotification = true;
             if (message.issuer.EndsWith(":Join"))
             {
                 var notification = JsonMapper.ToObject<JoinNotification>(message.payload);
                 _joinedPlayerIds.Add(notification.joinUserId);
-                gs2MatchmakingSetting.onJoinPlayer.Invoke(_gathering, notification.joinUserId);
-                gs2MatchmakingSetting.onUpdateJoinedPlayerIds.Invoke(_gathering, _joinedPlayerIds);
+                _userId = notification.joinUserId;
             }
             else if (message.issuer.EndsWith(":Leave"))
             {
                 var notification = JsonMapper.ToObject<LeaveNotification>(message.payload);
                 _joinedPlayerIds.Remove(notification.leaveUserId);
-                gs2MatchmakingSetting.onLeavePlayer.Invoke(_gathering, notification.leaveUserId);
-                gs2MatchmakingSetting.onUpdateJoinedPlayerIds.Invoke(_gathering, _joinedPlayerIds);
+                _userId = notification.leaveUserId;
             }
             else if (message.issuer.EndsWith(":Complete"))
             {
-                if (_gathering != null)
-                {
-                    // Joinと同時にマッチメイキングが成立する場合
-                    // DoMatchmaking の応答より先にマッチメイキング完了通知が届くことがある
-                    gs2MatchmakingSetting.onMatchmakingComplete.Invoke(_gathering, _joinedPlayerIds);
-                }
-
                 _complete = true;
+            }
+        }
+
+        private void Update()
+        {
+            if (_recievedNotification)
+            {
+                if (_issuer.EndsWith(":Join"))
+                {
+                    if (_gathering != null)
+                    {
+                        gs2MatchmakingSetting.onJoinPlayer.Invoke(_gathering, _userId);
+                        gs2MatchmakingSetting.onUpdateJoinedPlayerIds.Invoke(_gathering, _joinedPlayerIds);
+                    }
+                }
+                else if (_issuer.EndsWith(":Leave"))
+                {
+                    if (_gathering != null)
+                    {
+                        gs2MatchmakingSetting.onLeavePlayer.Invoke(_gathering, _userId);
+                        gs2MatchmakingSetting.onUpdateJoinedPlayerIds.Invoke(_gathering, _joinedPlayerIds);
+                    }
+                }
+                else if (_issuer.EndsWith(":Complete"))
+                {
+                    if (_gathering != null)
+                    {
+                        // Joinと同時にマッチメイキングが成立する場合
+                        // DoMatchmaking の応答より先にマッチメイキング完了通知が届くことがある
+                        gs2MatchmakingSetting.onMatchmakingComplete.Invoke(_gathering, _joinedPlayerIds);
+                    }
+                }
+                
+                _issuer = String.Empty;
+                _userId = String.Empty;
+                _recievedNotification = false;
             }
         }
 
@@ -100,6 +147,8 @@ namespace Gs2.Sample.Matchmaking
         {
             Validate();
 
+            _recievedNotification = false;
+            
             _complete = false;
             
             gs2Client.profile.Gs2Session.OnNotificationMessage += PushNotificationHandler;
@@ -137,8 +186,9 @@ namespace Gs2.Sample.Matchmaking
                         Capacity = capacity
                     },
                 },
+                new List<EzAttributeRange>(),
                 new List<string>(),
-                new List<EzAttributeRange>()
+                null
             );
             
             if (result.Error != null)
@@ -152,7 +202,7 @@ namespace Gs2.Sample.Matchmaking
 
             _joinedPlayerIds.Clear();
             _gathering = result.Result.Item;
-            _joinedPlayerIds.Add(request.gameSession.AccessToken.userId);
+            _joinedPlayerIds.Add(request.gameSession.AccessToken.UserId);
 
             gs2MatchmakingSetting.onUpdateJoinedPlayerIds.Invoke(_gathering, _joinedPlayerIds);
 

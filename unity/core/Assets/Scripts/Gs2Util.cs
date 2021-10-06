@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

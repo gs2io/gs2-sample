@@ -209,7 +209,7 @@ namespace Gs2.Sample.Quest
         }
 
         /// <summary>
-        /// 選択する
+        /// クエストグループを選択する
         /// </summary>
         public void ClickToSelect(EzQuestGroupModel questGroup)
         {
@@ -217,7 +217,7 @@ namespace Gs2.Sample.Quest
         }
 
         /// <summary>
-        /// 選択する
+        /// クエストを選択する
         /// </summary>
         public void ClickToSelect(EzQuestModel quest)
         {

@@ -9,7 +9,7 @@ using Gs2.Sample.Money;
 using Gs2.Unity.Gs2Quest.Model;
 using Gs2.Unity.Gs2Quest.Result;
 using Gs2.Unity.Util;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,7 +18,7 @@ namespace Gs2.Sample.Quest
     public class QuestController
     {
         /// <summary>
-        /// GS2-Matchmaking の設定値
+        /// GS2-Quest の設定値
         /// </summary>
         public Gs2QuestSetting gs2QuestSetting;
 
@@ -80,7 +80,9 @@ namespace Gs2.Sample.Quest
             yield return gs2Client.client.Quest.DescribeCompletedQuestLists(
                 r => { result = r; },
                 request.gameSession,
-                gs2QuestSetting.questNamespaceName
+                gs2QuestSetting.questNamespaceName,
+                30,
+                null
             );
             
             if (result.Error != null)
@@ -218,6 +220,7 @@ namespace Gs2.Sample.Quest
                     gs2QuestSetting.questNamespaceName,
                     questGroup.Name,
                     quest.Name,
+                    false,
                     config: new List<EzConfig>
                     {
                         new EzConfig
@@ -249,18 +252,26 @@ namespace Gs2.Sample.Quest
                 );
 
                 Gs2Exception exception = null;
-                machine.OnError += e =>
+                void OnError(Gs2Exception e)
                 {
                     exception = e;
                 };
-                machine.OnCompleteStampSheet += (sheet, stampResult) =>
+                
+                void OnComplete(EzStampSheet sheet, Gs2.Unity.Gs2Distributor.Result.EzRunStampSheetResult stampResult)
                 {
                     var json = JsonMapper.ToObject(stampResult.Result);
-                    var result = CreateProgressByStampSheetResult.FromDict(json);
-                    progress = new EzProgress(result.item);
+                    var result = CreateProgressByStampSheetResult.FromJson(json);
+                    progress = EzProgress.FromModel(result.Item);
                 };
-                yield return machine.Execute();
+                
+                gs2QuestSetting.onError.AddListener(OnError);
+                machine.OnCompleteStampSheet.AddListener(OnComplete);
 
+                yield return machine.Execute(gs2QuestSetting.onError);
+                
+                gs2QuestSetting.onError.RemoveListener(OnError);
+                machine.OnCompleteStampSheet.RemoveListener(OnComplete);
+                
                 if (exception != null)
                 {
                     gs2QuestSetting.onError.Invoke(
@@ -301,8 +312,8 @@ namespace Gs2.Sample.Quest
                     request.gameSession,
                     gs2QuestSetting.questNamespaceName,
                     progress.TransactionId,
-                    rewards,
                     isComplete,
+                    rewards,
                     new List<EzConfig>
                     {
                         new EzConfig
@@ -333,17 +344,17 @@ namespace Gs2.Sample.Quest
                 );
 
                 Gs2Exception exception = null;
-                machine.OnError += e =>
+                void OnError(Gs2Exception e)
                 {
                     exception = e;
-                };
-                yield return machine.Execute();
+                }
 
+                gs2QuestSetting.onError.AddListener(OnError);
+                yield return machine.Execute(gs2QuestSetting.onError);
+                gs2QuestSetting.onError.RemoveListener(OnError);
+                
                 if (exception != null)
                 {
-                    gs2QuestSetting.onError.Invoke(
-                        exception
-                    );
                     callback.Invoke(new AsyncResult<object>(null, exception));
                     yield break;
                 }

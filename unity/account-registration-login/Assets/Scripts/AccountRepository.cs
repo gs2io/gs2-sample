@@ -1,7 +1,7 @@
 ﻿﻿﻿using System.Collections.Generic;
 using System.IO;
 using Gs2.Unity.Gs2Account.Model;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 
  namespace Gs2.Sample.AccountRegistrationLoginSample

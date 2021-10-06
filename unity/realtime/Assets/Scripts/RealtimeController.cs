@@ -89,7 +89,7 @@ namespace Scenes.Realtime
         /// <param name="encryptionKey"></param>
         /// <returns></returns>
         public IEnumerator ConnectRoom(
-            UnityAction<AsyncResult<RealtimeSession>> callback,
+            UnityAction<AsyncResult<RelayRealtimeSession>> callback,
             string ipAddress,
             int port,
             string encryptionKey
@@ -98,7 +98,7 @@ namespace Scenes.Realtime
             var request = Gs2Util.LoadGlobalGameObject<RealtimeRequest>("RealtimeRequest");
 
             var session = new RelayRealtimeSession(
-                request.gameSession.AccessToken.token,
+                request.gameSession.AccessToken.Token,
                 ipAddress,
                 port,
                 encryptionKey,
@@ -146,13 +146,16 @@ namespace Scenes.Realtime
             if (session.Connected)
             {
                 callback.Invoke(
-                    new AsyncResult<RealtimeSession>(session, null)
+                    new AsyncResult<RelayRealtimeSession>(session, null)
                 );
             }
             else
             {
+                gs2RealtimeSetting.onError.Invoke(
+                    result.Error
+                );
                 callback.Invoke(
-                    new AsyncResult<RealtimeSession>(null, result.Error)
+                    new AsyncResult<RelayRealtimeSession>(null, result.Error)
                 );
             }
         }

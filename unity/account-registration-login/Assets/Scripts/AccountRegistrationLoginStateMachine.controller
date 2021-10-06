@@ -481,6 +481,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  account:
+    UserId: 
+    Password: 
+    CreatedAt: 0
 --- !u!1101 &300295885131428307
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

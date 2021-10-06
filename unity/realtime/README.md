@@ -6,8 +6,8 @@ GS2-Realtime を使用してプレイヤー間で通信するサンプル。
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/realtime` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+`gs2-sample/unity/realtime` をプロジェクトとして開きます。  
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -15,13 +15,13 @@ GS2-Realtime を使用してプレイヤー間で通信するサンプル。
 - [initialize_account_template.yaml - account-registration-login](initialize_account_template.yaml)
 - [initialize_realtime_template.yaml](initialize_realtime_template.yaml)
 
-のスタックを作成します。
+のスタックを作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ### 注意事項
 
-**initialize_matchmaking_template.yaml** を実行する必要はありません。
-**initialize_matchmaking_template.yaml** で作成されるマッチメイキングネームスペースは、マッチメイキング成立時に GS2-Realtime にゲームサーバを起動しない設定で作成されるため
+**initialize_matchmaking_template.yaml** を実行する必要はありません。  
+**initialize_matchmaking_template.yaml** で作成されるマッチメイキングネームスペースは、マッチメイキング成立時に GS2-Realtime にゲームサーバを起動しない設定で作成されるため  
 **initialize_realtime_template.yaml** にてそれらの設定をこのサンプルにとってより適切な設定でマッチメイキングネームスペースを作成します。
 
 ## Gs2Settings に設定を反映
@@ -90,7 +90,7 @@ Run シーンを開きます。
 
 ### GetRoom
 
-GS2-Realtime からルームの情報を取得します。
+GS2-Realtime からルームの情報を取得します。  
 ルーム情報の取得に成功すると `ConnectRoom` ステートに遷移し、失敗すると `Error` ステートに遷移します。
 
 ```csharp
@@ -145,7 +145,7 @@ private IEnumerator GetRoom(
 
 ### ConnectRoom
 
-ルーム情報に記載されたゲームサーバの `IPアドレス` `ポート` に接続します。
+ルーム情報に記載されたゲームサーバの `IPアドレス` `ポート` に接続します。  
 接続に成功すると `SyncPlayerProfiles` ステートに遷移し、失敗すると `Error` ステートに遷移します。
 
 ```csharp
@@ -264,12 +264,12 @@ private IEnumerator ConnectRoom(
 
 ### SyncPlayerProfiles
 
-ほかのプレイヤーの座標情報などを同期します。
+ほかのプレイヤーの座標情報などを同期します。  
 同期が完了すると `Main` ステートに遷移します。
 
 ### Main
 
-タップまたはクリックした座標に移動します。
+タップまたはクリックした座標に移動します。  
 定期的に自分の座標情報を送信します。他プレイヤーから座標を受け取った場合、そのプレイヤーの座標を移動します。
 
 ### Disconnected
@@ -278,5 +278,5 @@ private IEnumerator ConnectRoom(
 
 ### Error
 
-エラーが発生した場合に遷移するステートです。
+エラーが発生した場合に遷移するステートです。  
 `メニューに戻る` を選択すると `Initialize` に戻ります
