@@ -82,7 +82,6 @@ namespace Gs2.Sample.Core
             Validate();
             Debug.Log("Done");
             
-            AsyncResult<object> result = null;
             Debug.Log("Profile.Initialize");
             yield return profile.Initialize(
                 callback

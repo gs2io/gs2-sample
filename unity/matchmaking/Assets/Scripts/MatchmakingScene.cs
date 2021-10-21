@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using Gs2.Sample.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +7,7 @@ namespace Gs2.Sample.Matchmaking
 {
     public class MatchmakingScene : MonoBehaviour
     {
+        [SerializeField]
         /// <summary>
         /// マッチメイキング操作をするためのコントローラー
         /// </summary>
@@ -27,11 +28,13 @@ namespace Gs2.Sample.Matchmaking
         /// <summary>
         /// 参加者リストを表示する GameObject
         /// </summary>
+        [SerializeField]
         public GameObject joinedPlayersContent;
 
         /// <summary>
         /// 参加者リストにプレイヤー名を表示するプレハブ
         /// </summary>
+        [SerializeField]
         public GameObject displayPlayerNamePrefab;
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace Gs2.Sample.Matchmaking
                     "Please check README.md for details." +
                     " / " +
                     "'Canvas' の持つスクリプト 'Gs2MatchmakingSetting' の 'matchmakingNamespaceName' が設定されていません。" +
-                    "'matchmakingNamespaceName' に設定するべき値はサンプルに同梱されている 'initialize_matchmaking_template.yaml' を GS2-Deploy のスタックとしてアップロードすることで作成できます。" +
+                    "'matchmakingNamespaceName' に設定する値はサンプルに同梱されている 'initialize_matchmaking_template.yaml' を GS2-Deploy のスタックとしてアップロードすることで作成できます。" +
                     "詳しくは README.md をご確認ください。"
                     );
             }
@@ -124,7 +127,7 @@ namespace Gs2.Sample.Matchmaking
                     {
                         foreach (Transform child in joinedPlayersContent.transform)
                         {
-                            if (child.gameObject != displayPlayerNamePrefab)
+                            if (child != null && child.gameObject != displayPlayerNamePrefab)
                             {
                                 Destroy(child.gameObject);
                             }
@@ -133,9 +136,7 @@ namespace Gs2.Sample.Matchmaking
                         foreach (var joinedPlayerId in joinedPlayerIds)
                         {
                             var gamePlayerName = Instantiate<GameObject>(displayPlayerNamePrefab,
-                                new Vector3(0.0f, 0.0f, 0.0f),
-                                Quaternion.identity);
-                            gamePlayerName.transform.SetParent(joinedPlayersContent.transform);
+                                joinedPlayersContent.transform);
                             var nameLabel = gamePlayerName.GetComponent<Text>();
                             nameLabel.text = joinedPlayerId;
                             nameLabel.enabled = true;
@@ -181,7 +182,7 @@ namespace Gs2.Sample.Matchmaking
             {
                 case MatchmakingStateMachine.State.MainMenu:
                     var request = Gs2Util.LoadGlobalGameObject<MatchmakingRequest>("MatchmakingRequest");
-                    userId.text = "UserId: " + request.gameSession.AccessToken.userId;
+                    userId.text = "UserId: " + request.gameSession.AccessToken.UserId;
                     return transform.Find("MainMenu").gameObject;
                 case MatchmakingStateMachine.State.CreateGatheringMenu:
                     return transform.Find("CreateGatheringMenu").gameObject;

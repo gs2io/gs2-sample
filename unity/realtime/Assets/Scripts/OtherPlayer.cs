@@ -57,7 +57,7 @@ namespace Scenes.Realtime
             {
                 try
                 {
-                    _textMesh.text = Encoding.UTF8.GetString(data, pos, 1);
+                    _textMesh.text = Encoding.UTF8.GetString(data, pos, data.Length-pos);
                 }
                 catch (Exception)
                 {

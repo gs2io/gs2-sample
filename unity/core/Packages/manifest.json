@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": "1.2.16",
     "com.unity.ext.nunit": "1.0.0",
     "com.unity.ide.rider": "1.1.0",
     "com.unity.ide.vscode": "1.1.0",
@@ -9,6 +8,7 @@
     "com.unity.textmeshpro": "2.0.1",
     "com.unity.timeline": "1.1.0",
     "com.unity.ugui": "1.0.0",
+    "io.gs2.csharp.sdk": "https://github.com/gs2io/gs2-csharp-sdk.git",
     "io.gs2.unity.sdk": "https://github.com/gs2io/gs2-sdk-for-unity.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
@@ -43,8 +43,12 @@
     "com.unity.modules.xr": "1.0.0"
   },
   "lock": {
+    "io.gs2.csharp.sdk": {
+      "hash": "36896e3f9a001b3281027010928a6c5c6bf20916",
+      "revision": "HEAD"
+    },
     "io.gs2.unity.sdk": {
-      "hash": "8590ac94f596e333d6bbbc0198c6deceababc767",
+      "hash": "4525117e442b9e01b7659f0892c71618b1e1ea48",
       "revision": "HEAD"
     }
   }

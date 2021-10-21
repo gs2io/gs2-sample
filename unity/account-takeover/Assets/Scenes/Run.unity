@@ -155,13 +155,9 @@ MonoBehaviour:
   onSetTakeOver:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountTakeOver.SetTakeOverEvent, Gs2.Sample.AccountTakeOver,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onDeleteTakeOver:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountTakeOver.DeleteTakeOverEvent, Gs2.Sample.AccountTakeOver,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onDoTakeOver:
     m_PersistentCalls:
       m_Calls:
@@ -176,13 +172,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.AccountTakeOver.DoTakeOverEvent, Gs2.Sample.AccountTakeOver,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountTakeOver.ErrorEvent, Gs2.Sample.AccountTakeOver,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,24 +187,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountNamespaceName: 
+  accountNamespaceName: game-0001
   accountEncryptionKeyId: 
-  gatewayNamespaceName: 
+  gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoadAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onSaveAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.SaveAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onCreateAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.CreateAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onLogin:
     m_PersistentCalls:
       m_Calls:
@@ -227,13 +213,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoginEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.ErrorEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129933824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 414.31894, y: 404.93887, z: -210.375}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

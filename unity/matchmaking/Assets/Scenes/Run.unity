@@ -152,37 +152,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b9acb57dc1b76419896caf20274bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchmakingNamespaceName: 
+  matchmakingNamespaceName: matchmaking-0001
   onJoinPlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.JoinPlayerEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLeavePlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.LeavePlayerEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onUpdateJoinedPlayerIds:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.UpdateJoinedPlayerIdsEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onMatchmakingComplete:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.MatchmakingCompleteEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onMatchmakingCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.MatchmakingCancelEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.ErrorEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,24 +183,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountNamespaceName: 
+  accountNamespaceName: game-0001
   accountEncryptionKeyId: 
-  gatewayNamespaceName: 
+  gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoadAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onSaveAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.SaveAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onCreateAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.CreateAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onLogin:
     m_PersistentCalls:
       m_Calls:
@@ -227,13 +209,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoginEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.ErrorEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938178
 MonoBehaviour:
   m_ObjectHideFlags: 0

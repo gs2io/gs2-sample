@@ -1,12 +1,11 @@
-﻿{
+{
     "name": "Gs2.Sample.Matchmaking",
     "references": [
-        "TMPro",
         "Gs2",
         "Gs2.Sample.Core",
-        "Gs2.Sample.AccountRegistrationLogin"
+        "Gs2.Sample.AccountRegistrationLogin",
+        "Gs2.Unity"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

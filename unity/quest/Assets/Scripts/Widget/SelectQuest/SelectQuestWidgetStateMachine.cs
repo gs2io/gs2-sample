@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gs2.Core;
-  using Gs2.Gs2Stamina.Request;
-  using Gs2.Sample.Core;
-  using Gs2.Sample.Quest.Internal;
-  using Gs2.Sample.Stamina;
-  using Gs2.Unity.Gs2Quest.Model;
+using Gs2.Gs2Stamina.Request;
+using Gs2.Sample.Quest.Internal;
+using Gs2.Sample.Stamina;
+using Gs2.Unity.Gs2Quest.Model;
 using Gs2.Unity.Gs2Quest.Result;
-  using Gs2.Unity.Gs2Stamina.Result;
-  using UnityEngine;
+using Gs2.Unity.Gs2Stamina.Result;
+using UnityEngine;
 using UnityEngine.Events;
 
  namespace Gs2.Sample.Quest
@@ -80,7 +79,7 @@ using UnityEngine.Events;
         public StaminaController staminaController = new StaminaController();
 
         /// <summary>
-        /// スタミナコントローラー
+        /// クエストコントローラー
         /// </summary>
         public QuestController questController = new QuestController();
 
@@ -190,7 +189,7 @@ using UnityEngine.Events;
                     );
                     if (action != null)
                     {
-                        if (result.Result.Item.Value < action.consumeValue)
+                        if (result.Result.Item.Value < action.ConsumeValue)
                         {
                             GameObject.Find("Gs2QuestInternalSetting").GetComponent<Gs2QuestInternalSetting>().onFewStamina.Invoke();
                             _animator.SetTrigger(Trigger.CheckStaminaFailed.ToString());

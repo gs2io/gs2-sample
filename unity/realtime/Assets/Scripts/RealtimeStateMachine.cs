@@ -135,12 +135,13 @@ namespace Scenes.Realtime
         )
         {
             yield return controller.ConnectRoom(
-                r =>
+                (r) =>
                 {
                     animator.SetTrigger(r.Error == null
                         ? Trigger.ConnectRoomSucceed.ToString()
                         : Trigger.ConnectRoomFailed.ToString()
                     );
+                    session = r.Result;
                 },
                 room.IpAddress,
                 room.Port,

@@ -1,6 +1,6 @@
 # GS2 Samples for Unity
 
-Game Server Services (https://gs2.io) の Unity 向けのサンプルコードを公開します。
+Game Server Services (https://gs2.io) の Unity 向けのサンプルコードです。
 
 - [Core](core/)
 - [アカウントの登録・ログイン](account-registration-login/)
@@ -10,3 +10,8 @@ Game Server Services (https://gs2.io) の Unity 向けのサンプルコード�
 - [クエスト](quest/)
 - [マッチメイキング](matchmaking/)
 - [リアルタイム対戦](realtime/)
+
+##動作環境
+
+Unity 2019.2 以降
+

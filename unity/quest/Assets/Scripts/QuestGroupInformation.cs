@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Gs2.Unity.Gs2Quest.Model;
-using LitJson;
+﻿using Gs2.Unity.Gs2Quest.Model;
 
 namespace Gs2.Sample.Quest
 {

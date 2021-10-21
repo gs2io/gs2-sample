@@ -7,7 +7,7 @@ using Gs2.Sample.Money;
 using Gs2.Unity.Gs2Exchange.Result;
 using Gs2.Unity.Gs2Stamina.Result;
 using Gs2.Unity.Util;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -161,17 +161,17 @@ namespace Gs2.Sample.Stamina
                 );
 
                 Gs2Exception exception = null;
-                machine.OnError += e =>
+                void OnError(Gs2Exception e)
                 {
                     exception = e;
-                };
-                yield return machine.Execute();
-
+                }
+                
+                gs2StaminaSetting.onError.AddListener(OnError);
+                yield return machine.Execute(gs2StaminaSetting.onError);
+                gs2StaminaSetting.onError.RemoveListener(OnError);
+                
                 if (exception != null)
                 {
-                    gs2StaminaSetting.onError.Invoke(
-                        exception
-                    );
                     callback.Invoke(new AsyncResult<object>(null, exception));
                     yield break;
                 }

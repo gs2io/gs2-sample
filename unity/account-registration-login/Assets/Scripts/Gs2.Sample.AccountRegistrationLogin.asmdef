@@ -1,11 +1,10 @@
-﻿{
+{
     "name": "Gs2.Sample.AccountRegistrationLogin",
     "references": [
-        "TMPro",
         "Gs2",
-        "Gs2.Sample.Core"
+        "Gs2.Sample.Core",
+        "Gs2.Unity"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

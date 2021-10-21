@@ -6,8 +6,8 @@ GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサ�
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/matchmaking` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+Unityで`gs2-sample/unity/matchmaking` をプロジェクトとして開きます。  
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -15,7 +15,7 @@ GS2-Matchmaking を使用して対戦・協力プレイ相手を見つけるサ�
 - [initialize_account_template.yaml - account-registration-login](initialize_account_template.yaml)
 - [initialize_matchmaking_template.yaml](initialize_matchmaking_template.yaml)
 
-のスタックを作成します。
+のスタックを作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
@@ -70,18 +70,18 @@ Run シーンを開きます。
 
 ### Initialize
 
-初期化ステートです。
+初期化ステートです。  
 `MatchmakingMenuStateMachine::Initialize()` を呼び出すことで `MainMenu` ステートに遷移します。
 
 ### MainMenu
 
-マッチング処理のメインメニュー
-`ギャザリングの新規作成` を選択すると `CreateGatheringMenu` ステートに
+マッチング処理のメインメニュー  
+`ギャザリングの新規作成` を選択すると `CreateGatheringMenu` ステートに  
 `ギャザリングへ参加` を選択すると `JoinGathering` ステートに遷移します。
 
 ### CreateGatheringMenu
 
-ギャザリングの新規作成メニュー
+ギャザリングの新規作成メニュー  
 自分を含むプレイヤー人数を入力し、 `マッチメイキング開始` を選択すると `CreateGathering` ステートに遷移します。
 
 ### CreateGathering
@@ -111,7 +111,7 @@ yield return gs2Client.client.Matchmaking.CreateGathering(
 );
 ```
 
-このサンプルでは募集条件を特に指定せず、誰でも参加可能なギャザリングを作成しています。
+このサンプルでは募集条件を特に指定せず、誰でも参加可能なギャザリングを作成しています。  
 ギャザリングの作製に成功すると `Matchmaking` ステートに遷移します。
 
 ### JoinGathering
@@ -131,23 +131,23 @@ yield return gs2Client.client.Matchmaking.DoMatchmaking(
 );
 ```
 
-このサンプルでは `default` ロールを募集しているギャザリングに参加します。
-正常応答にもかかわらず `EzDoMatchmakingResult.Result.Item` が null の場合があります。
-本当にギャザリングが見つからなかった場合は `NotFoundException` が返ります。
-このケースはマッチメイキング処理途中にタイムアウトをしていったん処理が返ってきたときです。
-そのため、同じく戻り値に含まれる `MatchmakingContextToken` を使って再度ギャザリングを探す処理を再開します。
+このサンプルでは `default` ロールを募集しているギャザリングに参加します。  
+正常応答にもかかわらず `EzDoMatchmakingResult.Result.Item` が null の場合があります。  
+本当にギャザリングが見つからなかった場合は `NotFoundException` が返ります。  
+このケースはマッチメイキング処理途中にタイムアウトをしていったん処理が返ってきたときです。  
+そのため、同じく戻り値に含まれる `MatchmakingContextToken` を使って再度ギャザリングを探す処理を再開します。  
 
-マッチメイキングに成功し多場合 `Matchmaking` ステートに遷移します。
-マッチメイキング対象のギャザリングが見つからなかった場合は `GatheringNotFound` ステートに遷移します。
+マッチメイキングに成功した場合 `Matchmaking` ステートに遷移します。  
+マッチメイキング対象のギャザリングが見つからなかった場合は `GatheringNotFound` ステートに遷移します。  
 
 ### Matchmaking
 
-マッチメイキングの完了まち。
+マッチメイキングの完了待ち状態  
 `キャンセル` ボタンを選択した場合は `CancelMatchmaking` に遷移します。
 
 ### CancelMatchmaking
 
-マッチメイキングをキャンセルするとき
+マッチメイキングのキャンセル処理
 
 ```csharp
 AsyncResult<EzCancelMatchmakingResult> result = null;
@@ -161,15 +161,15 @@ yield return gs2Client.client.Matchmaking.CancelMatchmaking(
 
 ### MatchmakingComplete
 
-マッチメイキングが完了したとき
+マッチメイキングが完了したとき  
 ステートマシンはこのステートになると終了します。
 
 ### GatheringNotFound
 
-参加できるギャザリングが見つからなったとき
+参加できるギャザリングが見つからなったとき  
 `メニューに戻る` を選択すると `Initialize` に戻ります
 
 ### Error
 
-エラーが発生した場合に遷移するステートです。
+エラーが発生した場合に遷移するステートです。  
 `メニューに戻る` を選択すると `Initialize` に戻ります

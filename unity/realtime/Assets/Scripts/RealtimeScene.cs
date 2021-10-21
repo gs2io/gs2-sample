@@ -61,7 +61,7 @@ namespace Scenes.Realtime
                     "Please check README.md for details." +
                     " / " +
                     "'Canvas' の持つスクリプト 'Gs2RealtimeSetting' の 'realtimeNamespaceName' が設定されていません。" +
-                    "'realtimeNamespaceName' に設定するべき値はサンプルに同梱されている 'initialize_realtime_template.yaml' を GS2-Deploy のスタックとしてアップロードすることで作成できます。" +
+                    "'realtimeNamespaceName' に設定する値はサンプルに同梱されている 'initialize_realtime_template.yaml' を GS2-Deploy のスタックとしてアップロードすることで作成できます。" +
                     "詳しくは README.md をご確認ください。"
                     );
             }
@@ -106,7 +106,6 @@ namespace Scenes.Realtime
                     );
             }
 
-
             _stateMachine.controller = controller;
             _stateMachine.onChangeState.AddListener(
                 (_, state) =>
@@ -131,9 +130,8 @@ namespace Scenes.Realtime
 
                 otherPlayerPrefab.SetActive(false);
 
-                var otherPlayer = Instantiate<GameObject>(otherPlayerPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+                var otherPlayer = Instantiate<GameObject>(otherPlayerPrefab, otherPlayerPrefab.transform.parent);
                 otherPlayer.SetActive(true);
-                otherPlayer.transform.SetParent(transform);
                 players[player.ConnectionId] = otherPlayer.GetComponent<OtherPlayer>();
             }
 
@@ -156,7 +154,10 @@ namespace Scenes.Realtime
                 {
                     if (players.ContainsKey(player.ConnectionId))
                     {
-                        players[player.ConnectionId].Deserialize(player.Profile.ToByteArray());
+                        var data = player.Profile.ToByteArray();
+                        var p = players[player.ConnectionId];
+                        if (p != null)
+                            p.Deserialize(data);
                     }
                     else
                     {

@@ -153,22 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b9acb57dc1b76419896caf20274bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchmakingNamespaceName: 
+  matchmakingNamespaceName: matchmaking-0002
   onJoinPlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.JoinPlayerEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLeavePlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.LeavePlayerEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onUpdateJoinedPlayerIds:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.UpdateJoinedPlayerIdsEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onMatchmakingComplete:
     m_PersistentCalls:
       m_Calls:
@@ -183,18 +177,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.Matchmaking.MatchmakingCompleteEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onMatchmakingCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.MatchmakingCancelEvent, Gs2.Sample.Matchmaking,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.Matchmaking.ErrorEvent, Gs2.Sample.Matchmaking, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,24 +195,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccccb9f48b952849a63a9902351db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountNamespaceName: 
+  accountNamespaceName: game-0001
   accountEncryptionKeyId: 
-  gatewayNamespaceName: 
+  gatewayNamespaceName: gateway-0001
   onLoadAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoadAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onSaveAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.SaveAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onCreateAccount:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.CreateAccountEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onLogin:
     m_PersistentCalls:
       m_Calls:
@@ -239,13 +221,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.LoginEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Gs2.Sample.AccountRegistrationLoginSample.ErrorEvent, Gs2.Sample.AccountRegistrationLogin,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &592938178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,52 +277,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e77a620eb65874e8403176b0ae7c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realtimeNamespaceName: 
+  realtimeNamespaceName: realtime-0001
   onRelayMessage:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+RelayMessageEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onGetRoom:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+GetRoomEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onJoinPlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+JoinPlayerEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onLeavePlayer:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+LeavePlayerEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onUpdateProfile:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+UpdateProfileEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+CloseEvent, Gs2.Sample.Realtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onRelayError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+RelayErrorEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onGeneralError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+GeneralErrorEvent, Gs2.Sample.Realtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onError:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Scenes.Menu.Gs2RealtimeSetting+ErrorEvent, Gs2.Sample.Realtime, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2129933824
 GameObject:
   m_ObjectHideFlags: 0

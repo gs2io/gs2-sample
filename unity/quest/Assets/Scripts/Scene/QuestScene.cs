@@ -1,13 +1,12 @@
-﻿﻿using System;
+﻿using System;
 using Gs2.Core.Util;
 using Gs2.Sample.Core;
 using Gs2.Sample.Money;
- using Gs2.Sample.Money.Internal;
- using Gs2.Sample.Quest.Internal;
- using Gs2.Sample.Stamina;
- using Gs2.Sample.Stamina.Internal;
- using UnityEditor.PackageManager;
- using UnityEngine;
+using Gs2.Sample.Money.Internal;
+using Gs2.Sample.Quest.Internal;
+using Gs2.Sample.Stamina;
+using Gs2.Sample.Stamina.Internal;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gs2.Sample.Quest

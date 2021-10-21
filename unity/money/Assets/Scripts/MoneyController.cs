@@ -12,7 +12,7 @@ using Gs2.Unity.Gs2Money.Result;
 using Gs2.Unity.Gs2Showcase.Model;
 using Gs2.Unity.Gs2Showcase.Result;
 using Gs2.Unity.Util;
-using LitJson;
+using Gs2.Util.LitJson;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -72,7 +72,7 @@ namespace Gs2.Sample.Money
             {
                 return default;
             }
-            return (T)typeof(T).GetMethod("FromDict")?.Invoke(null, new object[] { Gs2Util.RemovePlaceholder(JsonMapper.ToObject(item.Request)) });
+            return (T)typeof(T).GetMethod("FromJson")?.Invoke(null, new object[] { Gs2Util.RemovePlaceholder(JsonMapper.ToObject(item.Request)) });
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Gs2.Sample.Money
             {
                 return default;
             }
-            return (T)typeof(T).GetMethod("FromDict")?.Invoke(null, new object[] { Gs2Util.RemovePlaceholder(JsonMapper.ToObject(item.Request)) });
+            return (T)typeof(T).GetMethod("FromJson")?.Invoke(null, new object[] { Gs2Util.RemovePlaceholder(JsonMapper.ToObject(item.Request)) });
         }
 
         /// <summary>
@@ -175,8 +175,8 @@ namespace Gs2.Sample.Money
                     displayItem.SalesItem, 
                     "Gs2Limit:CountUpByUserId"
                 );
-                var price = depositRequest.price;
-                var count = depositRequest.count;
+                var price = depositRequest.Price;
+                var count = depositRequest.Count;
 
                 int? boughtCount = null;
                 if(countUpRequest != null) {
@@ -184,9 +184,9 @@ namespace Gs2.Sample.Money
                     yield return _gs2Client.client.Limit.GetCounter(
                         r => { result2 = r; },
                         request.gameSession,
-                        countUpRequest.namespaceName,
-                        countUpRequest.limitName,
-                        countUpRequest.counterName
+                        countUpRequest.NamespaceName,
+                        countUpRequest.LimitName,
+                        countUpRequest.CounterName
                     );
                     if (result2.Error == null)
                     {
@@ -200,11 +200,11 @@ namespace Gs2.Sample.Money
                 products.Add(new Product
                 {
                     Id = displayItem.DisplayItemId,
-                    ContentsId = recordReceiptRequest.contentsId,
+                    ContentsId = recordReceiptRequest.ContentsId,
                     Price = price,
                     CurrencyCount = count,
                     BoughtCount = boughtCount,
-                    BoughtLimit = countUpRequest == null ? null : countUpRequest.maxValue,
+                    BoughtLimit = countUpRequest == null ? null : countUpRequest.MaxValue,
                 });
             }
             
@@ -230,12 +230,12 @@ namespace Gs2.Sample.Money
 
             string receipt = null;
             {
-                AsyncResult<string> result = null;
+#if UNITY_PURCHASING
+                AsyncResult<PurchaseParameters> result = null;
                 yield return new IAPUtil().Buy(
                     r => { result = r; },
                     product.ContentsId
                 );
-
                 if (result.Error != null)
                 {
                     gs2MoneySetting.onError.Invoke(
@@ -245,7 +245,8 @@ namespace Gs2.Sample.Money
                     yield break;
                 }
 
-                receipt = result.Result;
+                receipt = result.Result.receipt;
+#endif
             }
             string stampSheet = null;
             {
@@ -291,17 +292,17 @@ namespace Gs2.Sample.Money
                 );
 
                 Gs2Exception exception = null;
-                machine.OnError += e =>
+                void OnError(Gs2Exception e)
                 {
                     exception = e;
-                };
-                yield return machine.Execute();
-
+                }
+                
+                gs2MoneySetting.onError.AddListener(OnError);
+                yield return machine.Execute(gs2MoneySetting.onError);
+                gs2MoneySetting.onError.RemoveListener(OnError);
+                
                 if (exception != null)
                 {
-                    gs2MoneySetting.onError.Invoke(
-                        exception
-                    );
                     callback.Invoke(new AsyncResult<object>(null, exception));
                     yield break;
                 }

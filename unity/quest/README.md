@@ -2,14 +2,15 @@
 
 GS2-Quest を使ってクエストを管理するサンプルです。
 
-クエストには挑戦するための対価と報酬が設定できますが、このサンプルでは
-対価にスタミナを報酬に課金通貨を設定しています。クエストに失敗した場合の報酬には対価で支払ったスタミナを返すように設定しています。
+クエストには、挑戦するために必要となるコストと、クリア報酬を設定できますが、  
+このサンプルではコストにスタミナを、クリア報酬に課金通貨を設定しています。  
+クエストに失敗した場合は報酬にコストとして費やしたスタミナを返すように設定しています。
 
 # 初期設定
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/quest` をプロジェクトとして開きます。
+`gs2-sample/unity/quest` をプロジェクトとして開きます。  
 すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
 
 ## GS2-Deploy を使って初期設定をおこなう
@@ -20,7 +21,7 @@ GS2-Quest を使ってクエストを管理するサンプルです。
 - [initialize_stamina_template.yaml](../stamina/initialize_stamina_template.yaml)
 - [initialize_quest_template.yaml](initialize_quest_template.yaml)
 
-のスタックを作成します。
+のスタックを順に作成します。
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
@@ -181,7 +182,7 @@ yield return gs2Client.client.Quest.ListQuests(
 
 # ゲームプレイステータスステートマシン
 
-![ステートマシン](Docs/state_machine_select_quest.jpg)
+![ステートマシン](Docs/state_machine_play_game.jpg)
 
 ### StartProcessing
 

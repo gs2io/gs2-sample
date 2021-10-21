@@ -80,7 +80,9 @@ namespace Gs2.Sample.AccountTakeOver
             yield return gs2Client.client.Account.ListTakeOverSettings(
                 r => { result = r; },
                 request.gameSession,
-                gs2AccountSetting.accountNamespaceName
+                gs2AccountSetting.accountNamespaceName,
+                30,
+                null
             );
             
             if (result.Error != null)
