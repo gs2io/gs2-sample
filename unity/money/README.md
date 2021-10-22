@@ -2,14 +2,14 @@
 
 GS2-Money を使って管理されている課金通貨を、GS2-Showcase で販売するサンプルです。
 
-サンプルにで定義されている商品のうち1つの商品は GS2-Limit による購入回数の制限がついており、１回しか購入できないようになっています。
+サンプルにで定義されている商品のうち１つには GS2-Limit による購入回数の制限がついており、１回のみ購入が可能になっています。
 
 # 初期設定
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/money` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+`gs2-sample/unity/money` をプロジェクトとして開きます。  
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -17,7 +17,7 @@ GS2-Money を使って管理されている課金通貨を、GS2-Showcase で販
 - [initialize_account_template.yaml - account-registration-login](../account-registration-login/initialize_account_template.yaml)
 - [initialize_money_template.yaml](initialize_money_template.yaml)
 
-のスタックを作成します。
+のスタックを作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
@@ -75,17 +75,17 @@ Run シーンを開きます。
 
 ### Initialize
 
-初期化ステートです。
+初期化ステートです。  
 ウォレットステータスウィジェットを作成します。
 
 ### Idle
 
-ウォレットステータスウィジェットを表示している状態です。
+ウォレットステータスウィジェットを表示している状態です。  
 サンプルでは画面上に残高を表示し、残高の横の「＋」ボタンが押されるまで待機します。
 
 ### Store
 
-課金通貨の販売ウィジェットを表示している状態です。
+課金通貨の販売ウィジェットを表示している状態です。  
 ウィジェットを閉じるまで待機します。
 
 ### Error
@@ -111,7 +111,7 @@ yield return gs2Client.client.Money.Get(
 ```
 ### Idle
 
-ウォレットステータスウィジェットを表示している状態です。
+ウォレットステータスウィジェットを表示している状態です。  
 ウィジェットを閉じるまで待機します。
 
 # ストアステートマシン
@@ -132,7 +132,7 @@ yield return gs2Client.client.Showcase.GetShowcase(
 );
 ```
 
-取得した商品情報をパースし、販売価格や入手できる課金通貨の数量を取得します。
+取得した商品情報をパースし、販売価格や入手できる課金通貨の数量を取得します。  
 購入回数制限が設定されている場合は、購入回数カウンターの状態も取得しています。
 
 ```csharp
@@ -193,7 +193,7 @@ foreach (var displayItem in result.Result.Item.DisplayItems)
 
 購入処理を実行します。
 
-まずは Unity IAP を使用して AppStore や GooglePlay でコンテンツの購入を行います。
+まずは Unity IAP を使用して AppStore や GooglePlay でコンテンツの購入を行います。  
 購入した結果得られたレシートを後続の処理で参照できるように保持しておきます。
 
 ```csharp
@@ -208,7 +208,7 @@ string receipt = null;
 }
 ```
 
-購入したレシートを使って、GS2-Showcase の商品を購入する処理を実行します。
+購入したレシートを使って、GS2-Showcase の商品を購入する処理を実行します。  
 Config には GS2-Money のウォレットスロットと、レシートの内容を渡します。
 
 ```csharp
@@ -239,8 +239,8 @@ string stampSheet = null;
 }
 ```
 
-取得したスタンプシートを実行します。
-GS2 SDK for Unity ではスタンプシート実行用のステートマシンが用意されていますので、そちらを利用します。
+取得したスタンプシートを実行します。  
+GS2 SDK for Unity ではスタンプシート実行用のステートマシンが用意されていますので、そちらを利用します。  
 ステートマシンの実行には GS2-Distributor と スタンプシートの署名計算に使用した暗号鍵が必要となります。
 
 ```csharp

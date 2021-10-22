@@ -11,7 +11,7 @@ Game Server Services (https://gs2.io) の Unity 向けのサンプルコード�
 - [マッチメイキング](matchmaking/)
 - [リアルタイム対戦](realtime/)
 
-##動作環境
+## 動作環境
 
 Unity 2019.2 以降
 
