@@ -1,14 +1,14 @@
 ﻿# スタミナ
 
-GS2-Stamina を使ってスタミナ値を管理するサンプルです。
+GS2-Stamina を使ってスタミナ値を管理するサンプルです。  
 GS2-Exchange と連携して GS2-Money を消費してスタミナ値を回復することもできるようになっています。
 
 # 初期設定
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/stamina` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+`gs2-sample/unity/stamina` をプロジェクトとして開きます。  
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -17,7 +17,7 @@ GS2-Exchange と連携して GS2-Money を消費してスタミナ値を回復�
 - [initialize_money_template.yaml](../money/initialize_money_template.yaml)
 - [initialize_stamina_template.yaml](initialize_stamina_template.yaml)
 
-のスタックを作成します。
+のスタックを作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
@@ -80,22 +80,22 @@ Run シーンを開きます。
 
 ### Initialize
 
-初期化ステートです。
+初期化ステートです。  
 ウォレットステータスウィジェット と スタミナステータスウィジェット を作成します。
 
 ### Idle
 
-ウォレットとスタミナの状態が取得し終わった状態です。
+ウォレットとスタミナの状態が取得し終わった状態です。  
 サンプルでは画面上に残高とスタミナを表示し、残高やスタミナの横の「＋」ボタンが押されるまで待機します。
 
 ### MoneyStore
 
-課金通貨の販売ウィジェットを表示している状態です。
+課金通貨の販売ウィジェットを表示している状態です。  
 ウィジェットを閉じるまで待機します。
 
 ### StaminaStore
 
-スタミナの販売ウィジェットを表示している状態です。
+スタミナの販売ウィジェットを表示している状態です。  
 ウィジェットを閉じるまで待機します。
 
 ### ConsumeProgress
@@ -137,7 +137,7 @@ yield return gs2Client.client.Stamina.GetStamina(
 
 ### Idle
 
-スタミナの状態が取得し終わった状態です。
+スタミナの状態が取得し終わった状態です。  
 サンプルでは画面上にスタミナを表示し、スタミナの横の「＋」ボタンが押されるまで待機します。
 
 # ストアステートマシン

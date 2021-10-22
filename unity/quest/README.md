@@ -11,7 +11,7 @@ GS2-Quest を使ってクエストを管理するサンプルです。
 ## Unity でプロジェクトを開く
 
 `gs2-sample/unity/quest` をプロジェクトとして開きます。  
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -21,7 +21,7 @@ GS2-Quest を使ってクエストを管理するサンプルです。
 - [initialize_stamina_template.yaml](../stamina/initialize_stamina_template.yaml)
 - [initialize_quest_template.yaml](initialize_quest_template.yaml)
 
-のスタックを順に作成します。
+のスタックを順に作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映

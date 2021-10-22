@@ -8,14 +8,14 @@ Game Center/Google Play Game Service のアカウントを関連付けて引継�
 ## Unity でプロジェクトを開く
 
 `gs2-sample/unity/account-takeover` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
 - [initialize_credential_template.yaml - core](../core/initialize_credential_template.yaml)
 - [initialize_account_template.yaml - account-registration-login](initialize_account_template.yaml)
 
-のスタックを作成します。
+のスタックを作成します。  
 しばらく待ってすべてのスタックの状態が `CREATE_COMPLETE` になれば初期設定は完了です。
 
 ## Gs2Settings に設定を反映
@@ -74,16 +74,16 @@ Run シーンを開きます。
 
 アカウントの引継ぎのメインメニュー
 
-引継ぎ情報を登録するか、引継ぎを実行するかを選択する。
-このサンプルではログイン状態にならないとこのメニューに到達できませんが、
+引継ぎ情報を登録するか、引継ぎを実行するかを選択する。  
+このサンプルではログイン状態にならないとこのメニューに到達できませんが、  
 引継ぎを実行するメニューより先はログイン状態である必要はありません。
 
 ### SelectDoTakeOverType
 
 引継ぎを実行するメニュー
 
-メールアドレス・パスワードを用いたデータ引継ぎか、
-Game Center/Google Play Game Service のような配信プラットフォームアカウントを用いたデータ引継ぎかを選択します。
+メールアドレス・パスワードを用いたデータ引継ぎか、  
+Game Center/Google Play Game Service のような配信プラットフォームアカウントを用いたデータ引継ぎかを選択します。  
 動作確認はしていませんが、 Unity の Social API を使用しているため、 Xbox Live ではマイクロソフトアカウントを使用した引継ぎなどが行えるはずです。
 
 ### GetTakeOverSettingsProcessing
@@ -103,8 +103,8 @@ yield return gs2Client.client.Account.ListTakeOverSettings(
 
 引継ぎを設定するメニュー
 
-メールアドレス・パスワードを用いたデータ引継ぎか、
-Game Center/Google Play Game Service のような配信プラットフォームアカウントを用いたデータ引継ぎかを選択します。
+メールアドレス・パスワードを用いたデータ引継ぎか、  
+Game Center/Google Play Game Service のような配信プラットフォームアカウントを用いたデータ引継ぎかを選択します。  
 動作確認はしていませんが、 Unity の Social API を使用しているため、 Xbox Live ではマイクロソフトアカウントを使用した引継ぎなどが行えるはずです。
 
 ### DoEmailTakeOver
@@ -182,5 +182,5 @@ yield return gs2Client.client.Account.DeleteTakeOverSetting(
 
 ### Error
 
-エラーが発生した場合に遷移するステートです。
+エラーが発生した場合に遷移するステートです。  
 `メニューに戻る` を選択すると `Initialize` に戻ります

@@ -6,8 +6,8 @@ GS2-Account を使用してゲームにログイン機能を追加するサン�
 
 ## Unity でプロジェクトを開く
 
-`gs2-sample/unity/account-registration-login` をプロジェクトとして開きます。
-すると、 Unity Package Manager が依存関係を解決してプロジェクトを開きます。
+`gs2-sample/unity/account-registration-login` をプロジェクトとして開きます。  
+Unity Package Manager により、依存関係の解決に必要なパッケージのダウンロードが行われます。
 
 ## GS2-Deploy を使って初期設定をおこなう
 
@@ -57,18 +57,18 @@ Run シーンを開きます。
 
 ### Initialize
 
-初期化ステートです。
+初期化ステートです。  
 `AccountMenuStateMachine::Initialize()` を呼び出すことで `LoadAccount` ステートに遷移します。
 
 ### LoadAccount
 
-ローカルストレージから登録済みのアカウント情報を読み込みます。
-読み込みに失敗すると `CreateAccountMenu` ステートに遷移します。
+ローカルストレージから登録済みのアカウント情報を読み込みます。  
+読み込みに失敗すると `CreateAccountMenu` ステートに遷移します。  
 読み込みに成功すると `LoginMenu` ステートに遷移します。
 
 ### CreateAccountMenu
 
-アカウント作成ボタンを表示するステートです。
+アカウント作成ボタンを表示するステートです。  
 `アカウント作成` ボタンをクリックすると `CreateAccountProgressing` ステートに遷移します。
 
 ### CreateAccountProgressing
@@ -90,19 +90,19 @@ yield return gs2Client.client.Account.Create(
 
 ### SaveAccount
 
-ローカルストレージに登録したアカウント情報を保存します。
-保存に失敗すると `Error` ステートに遷移します。
+ローカルストレージに登録したアカウント情報を保存します。  
+保存に失敗すると `Error` ステートに遷移します。  
 保存に成功すると `LoginMenu` ステートに遷移します。
 
 ### LoginMenu
 
-ログインボタンを表示するステートです。
-`ログイン` ボタンをクリックすると `LoginProgressing` ステートに遷移します。
+ログインボタンを表示するステートです。  
+`ログイン` ボタンをクリックすると `LoginProgressing` ステートに遷移します。  
 `アカウントを削除` ボタンをクリックすると `RemoveAccountProcessing` に遷移します。
 
 ### RemoveAccountProcessing
 
-アカウント情報をローカルストレージから削除します。
+アカウント情報をローカルストレージから削除します。  
 成功すると `LoadAccount` ステートに遷移し、失敗すると `Error` ステートに遷移します。
 
 ### LoginProcessing
@@ -126,10 +126,10 @@ yield return gs2Client.profile.Login(
 );
 ```
 
-GS2-Account のログイン処理だけでなく、WebSocketセッションに対してログインしたユーザIDを設定してプッシュ通知を受け取れるようにもしています。
+GS2-Account のログイン処理だけでなく、WebSocketセッションに対してログインしたユーザIDを設定してプッシュ通知を受け取れるようにもしています。  
 成功すると `LoginComplete` ステートに遷移し、失敗すると `Error` ステートに遷移します。
 
 ### LoginComplete
 
-ログインが正常に完了した場合に遷移するステートです。
+ログインが正常に完了した場合に遷移するステートです。  
 ステートマシンはこのステートになると終了します。
