@@ -1,0 +1,12 @@
+GS2TemplateFormatVersion: "2019-05-01"
+
+Resources:
+  AccountNamespace:
+    Type: GS2::Account::Namespace
+    Properties:
+      Name: CloudSave-Account
+
+  DatastoreNamespace:
+    Type: GS2::Datastore::Namespace
+    Properties:
+      Name: CloudSave-Datastore

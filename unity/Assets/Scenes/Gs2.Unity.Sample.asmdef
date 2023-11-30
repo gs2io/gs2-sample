@@ -1,0 +1,34 @@
+{
+    "name": "Gs2.Unity.Sample.Simple",
+    "rootNamespace": "",
+    "references": [
+        "Gs2",
+        "Gs2.Unity",
+        "Gs2.Unity.UIKit",
+        "UniTask",
+        "UniTask.Linq",
+        "Unity.Services.Core",
+        "UnityEngine.Purchasing",
+        "UnityEngine.Purchasing.Stores"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.purchasing",
+            "expression": "",
+            "define": "GS2_ENABLE_PURCHASING"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "",
+            "define": "GS2_ENABLE_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}

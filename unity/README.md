@@ -1,17 +1,14 @@
 # GS2 Samples for Unity
 
-Game Server Services (https://gs2.io) の Unity 向けのサンプルコードです。
+Game Server Services (https://gs2.io) の Unity におけるサンプルコードです。
 
-- [Core](core/)
-- [アカウントの登録・ログイン](account-registration-login/)
-- [アカウントの引継ぎ](account-takeover/)
-- [課金通貨販売](money/)
-- [スタミナ](stamina/)
-- [クエスト](quest/)
-- [マッチメイキング](matchmaking/)
-- [リアルタイム対戦](realtime/)
+[ログイン](Assets/Scenes/Login)
+[アカウント引き継ぎ](Assets/Scenes/TakeOver)
+[クラウドセーブ](Assets/Scenes/CloudSave)
+[ログインボーナス](Assets/Scenes/LoginReward)
+[ゲーム内通貨の販売](Assets/Scenes/InGameCurrencyStore)
 
 ## 動作環境
 
-Unity 2019.2 以降
+Unity 2022 LTS 以降
 

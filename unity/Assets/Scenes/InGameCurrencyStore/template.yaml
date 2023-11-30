@@ -1,0 +1,102 @@
+GS2TemplateFormatVersion: "2019-05-01"
+
+Globals:
+  Alias:
+    AccountNamespaceName: InGameCurrencyStore-Account
+    MoneyNamespaceName: InGameCurrencyStore-Money
+    ShowcaseNamespaceName: InGameCurrencyStore-Showcase
+
+Resources:
+  AccountNamespace:
+    Type: GS2::Account::Namespace
+    Properties:
+      Name: ${AccountNamespaceName}
+    
+  MoneyNamespace:
+    Type: GS2::Money::Namespace
+    Properties:
+      Name: ${MoneyNamespaceName}
+      Priority: free
+      ShareFree: true
+      Currency: JPY
+      EnableFakeReceipt: true
+
+  ShowcaseNamespace:
+    Type: GS2::Showcase::Namespace
+    Properties:
+      Name: ${ShowcaseNamespaceName}
+      TransactionSetting:
+        EnableAutoRun: true
+
+  ShowcaseMasterData:
+    Type: GS2::Showcase::CurrentShowcaseMaster
+    Properties:
+      NamespaceName: InGameCurrencyStore-Showcase
+      Settings:
+        version: "2019-04-04"
+        showcases:
+          - name: GemStore
+            displayItems:
+              - type: salesItem
+                salesItem:
+                  name: Tier1
+                  consumeActions:
+                    - action: Gs2Money:RecordReceipt
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        contentsId: "io.gs2.aoc.sample1"
+                        receipt: "#{receipt}"
+                  acquireActions:
+                    - action: Gs2Money:DepositByUserId
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        slot: 0
+                        price: 100
+                        count: 100
+              - type: salesItem
+                salesItem:
+                  name: Tier2
+                  consumeActions:
+                    - action: Gs2Money:RecordReceipt
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        contentsId: "io.gs2.aoc.sample1"
+                        receipt: "#{receipt}"
+                  acquireActions:
+                    - action: Gs2Money:DepositByUserId
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        slot: 0
+                        price: 500
+                        count: 530
+              - type: salesItem
+                salesItem:
+                  name: Tier2-Dash
+                  consumeActions:
+                    - action: Gs2Money:RecordReceipt
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        contentsId: "io.gs2.aoc.sample1"
+                        receipt: "#{receipt}"
+                  acquireActions:
+                    - action: Gs2Money:DepositByUserId
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        slot: 0
+                        price: 500
+                        count: 500
+                    - action: Gs2Money:DepositByUserId
+                      request:
+                        namespaceName: ${MoneyNamespaceName}
+                        userId: "#{userId}"
+                        slot: 0
+                        price: 0
+                        count: 30
+    DependsOn:
+      - ShowcaseNamespace

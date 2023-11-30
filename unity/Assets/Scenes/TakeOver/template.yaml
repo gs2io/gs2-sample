@@ -1,0 +1,7 @@
+GS2TemplateFormatVersion: "2019-05-01"
+
+Resources:
+  AccountNamespace:
+    Type: GS2::Account::Namespace
+    Properties:
+      Name: TakeOver
