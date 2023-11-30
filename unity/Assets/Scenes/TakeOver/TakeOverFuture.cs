@@ -14,13 +14,13 @@
  * permissions and limitations under the License.
  */
 
+using System;
 using System.Collections;
 using Gs2.Core.Model;
 using Gs2.Unity.Core;
 using Gs2.Unity.Gs2Account.Model;
 using Gs2.Unity.Util;
 using UnityEngine;
-using UnityEditor;
 
 namespace Gs2.Sample.Simple
 {
@@ -89,7 +89,7 @@ namespace Gs2.Sample.Simple
                 gameSession = future.Result;
             }
 
-            var email = GUID.Generate() + "@example.com";
+            var email = Guid.NewGuid() + "@example.com";
             
             // add takeover setting
             {

@@ -15,13 +15,13 @@
  */
 
 #if GS2_ENABLE_UNITASK
+using System;
 using Cysharp.Threading.Tasks.Linq;
 using Gs2.Core.Model;
 using Gs2.Unity.Core;
 using Gs2.Unity.Util;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using UnityEditor;
 
 namespace Gs2.Sample.Simple
 {
@@ -63,7 +63,7 @@ namespace Gs2.Sample.Simple
                 account.Password
             );
 
-            var email = GUID.Generate() + "@example.com";
+            var email = Guid.NewGuid() + "@example.com";
             
             // add takeover setting
             await gs2Account.Me(
