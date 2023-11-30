@@ -1,0 +1,33 @@
+GS2TemplateFormatVersion: "2019-05-01"
+
+Globals:
+  Alias:
+    AccountNamespaceName: Ranking-Account
+    RankingNamespaceName: Ranking
+    RankingCategoryName: Category
+
+Resources:
+  AccountNamespace:
+    Type: GS2::Account::Namespace
+    Properties:
+      Name: ${AccountNamespaceName}
+
+  RankingNamespace:
+    Type: GS2::Ranking::Namespace
+    Properties:
+      Name: ${RankingNamespaceName}
+
+  RankingMasterData:
+    Type: GS2::Ranking::CurrentRankingMaster
+    Properties:
+      NamespaceName: ${RankingNamespaceName}
+      Settings:
+        version: "2019-09-17"
+        categories:
+          - name: ${RankingCategoryName}
+            orderDirection: desc
+            scope: global
+            calculateIntervalMinutes: 60
+            uniqueByUserId: true
+    DependsOn:
+      - RankingNamespace
