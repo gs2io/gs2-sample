@@ -64,6 +64,9 @@ namespace Gs2.Sample.Simple
                 account.Password
             );
             
+            // clear gacha result buffer
+            gs2.Lottery.ClearDrawnResult(this.lotteryNamespaceName);
+
             // draw gacha
             var transaction = await gs2.Exchange.Namespace(
                 this.exchangeNamespaceName

@@ -94,6 +94,9 @@ namespace Gs2.Sample.Simple
                 gameSession = future.Result;
             }
             
+            // clear gacha result buffer
+            gs2.Lottery.ClearDrawnResult(this.lotteryNamespaceName);
+
             // draw gacha
             {
                 var future = gs2.Exchange.Namespace(
