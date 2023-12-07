@@ -1,0 +1,144 @@
+GS2TemplateFormatVersion: "2019-05-01"
+
+Globals:
+  Alias:
+    AccountNamespaceName: Lottery-Account
+    LotteryNamespaceName: Lottery
+    NormalLotteryName: Normal
+    RareLotteryName: Rare
+    InventoryNamespaceName: Lottery-Inventory
+    InventoryName: Bag
+    ExchangeNamespaceName: Lottery-Exchange
+    ExchangeName: Gacha
+
+Resources:
+  AccountNamespace:
+    Type: GS2::Account::Namespace
+    Properties:
+      Name: ${AccountNamespaceName}
+    
+  LotteryNamespace:
+    Type: GS2::Lottery::Namespace
+    Properties:
+      Name: ${LotteryNamespaceName}
+      TransactionSetting:
+        EnableAutoRun: true
+  
+  LotteryMasterData:
+    Type: GS2::Lottery::CurrentLotteryMaster
+    Properties:
+      NamespaceName: ${LotteryNamespaceName}
+      Settings:
+        version: 2019-02-21
+        lotteryModels:
+          - name: ${NormalLotteryName}
+            mode: normal
+            method: prize_table
+            prizeTableName: ${NormalLotteryName}
+          - name: ${RareLotteryName}
+            mode: normal
+            method: prize_table
+            prizeTableName: ${RareLotteryName}
+        prizeTables:
+          - name: ${NormalLotteryName}
+            prizes:
+              - prizeId: Prize-0001
+                type: action
+                acquireActions:
+                  - action: Gs2Inventory:AcquireItemSetByUserId
+                    request:
+                      namespaceName: ${InventoryNamespaceName}
+                      inventoryName: ${InventoryName}
+                      itemName: Item-0001
+                      userId: "#{userId}"
+                      acquireCount: 1
+                weight: 50
+              - prizeId: Prize-0002
+                type: action
+                acquireActions:
+                  - action: Gs2Inventory:AcquireItemSetByUserId
+                    request:
+                      namespaceName: ${InventoryNamespaceName}
+                      inventoryName: ${InventoryName}
+                      itemName: Item-0002
+                      userId: "#{userId}"
+                      acquireCount: 1
+                weight: 50
+          - name: ${RareLotteryName}
+            prizes:
+              - prizeId: Prize-0003
+                type: action
+                acquireActions:
+                  - action: Gs2Inventory:AcquireItemSetByUserId
+                    request:
+                      namespaceName: ${InventoryNamespaceName}
+                      inventoryName: ${InventoryName}
+                      itemName: Item-0003
+                      userId: "#{userId}"
+                      acquireCount: 1
+                weight: 1
+    DependsOn:
+      - LotteryNamespace
+
+  InventoryNamespace:
+    Type: GS2::Inventory::Namespace
+    Properties:
+      Name: ${InventoryNamespaceName}
+
+  InventoryMasterData:
+    Type: GS2::Inventory::CurrentItemModelMaster
+    Properties:
+      NamespaceName: ${InventoryNamespaceName}
+      Settings:
+        version: 2019-02-05
+        inventoryModels:
+          - name: ${InventoryName}
+            initialCapacity: 10
+            maxCapacity: 10
+            itemModels:
+              - name: Item-0001
+                stackingLimit: 99
+                allowMultipleStacks: false
+                sortValue: 1
+              - name: Item-0002
+                stackingLimit: 99
+                allowMultipleStacks: false
+                sortValue: 2
+              - name: Item-0003
+                stackingLimit: 99
+                allowMultipleStacks: false
+                sortValue: 3
+    DependsOn:
+      - InventoryNamespace
+
+  ExchangeNamespace:
+    Type: GS2::Exchange::Namespace
+    Properties:
+      Name: ${ExchangeNamespaceName}
+      TransactionSetting:
+        EnableAutoRun: true
+
+  ExchangeMasterData:
+    Type: GS2::Exchange::CurrentRateMaster
+    Properties:
+      NamespaceName: ${ExchangeNamespaceName}
+      Settings:
+        version: 2019-08-19
+        rateModels:
+          - name: ${ExchangeName}
+            consumeActions: []
+            acquireActions:
+              - action: Gs2Lottery:DrawByUserId
+                request:
+                  namespaceName: ${LotteryNamespaceName}
+                  lotteryName: ${NormalLotteryName}
+                  userId: "#{userId}"
+                  count: 9
+              - action: Gs2Lottery:DrawByUserId
+                request:
+                  namespaceName: ${LotteryNamespaceName}
+                  lotteryName: ${RareLotteryName}
+                  userId: "#{userId}"
+                  count: 1
+    DependsOn:
+      - ExchangeNamespace

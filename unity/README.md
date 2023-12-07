@@ -6,6 +6,7 @@ Game Server Services (https://gs2.io) の Unity におけるサンプルコー�
 - [アカウント引き継ぎ](Assets/Scenes/TakeOver)
 - [クラウドセーブ](Assets/Scenes/CloudSave)
 - [ランキング](Assets/Scenes/Ranking)
+- [ガチャ](Assets/Scenes/Lottery)
 - [ログインボーナス](Assets/Scenes/LoginReward)
 - [ゲーム内通貨の販売](Assets/Scenes/InGameCurrencyStore)
 
